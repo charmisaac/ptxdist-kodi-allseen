@@ -1,0 +1,6 @@
+## SECTION=hosttools_noprompt
+
+config HOST_ORBIT2
+	tristate
+	select HOST_LIBIDL
+	default ALLYES

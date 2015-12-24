@@ -1,0 +1,75 @@
+Index: chrome-39.0.2132.2/src/build/common.gypi
+===================================================================
+--- chrome-39.0.2132.2.orig/src/build/common.gypi
++++ chrome-39.0.2132.2/src/build/common.gypi
+@@ -3424,8 +3424,8 @@
+     ['os_posix==1', {
+       'target_defaults': {
+         'ldflags': [
+-          '-Wl,-z,now',
+-          '-Wl,-z,relro',
++#          '-Wl,-z,now',
++#          '-Wl,-z,relro',
+         ],
+       },
+     }],
+@@ -3489,7 +3489,7 @@
+           '-Wsign-compare',
+         ],
+         'ldflags': [
+-          '-pthread', '-Wl,-z,noexecstack',
++#          '-pthread', '-Wl,-z,noexecstack',
+         ],
+         'libraries' : [
+           '<(libraries_for_target)',
+@@ -3524,8 +3524,8 @@
+                   '-ffunction-sections',
+                 ],
+                 'ldflags': [
+-                  '-Wl,-O1',
+-                  '-Wl,--as-needed',
++		  '-Wl,-O1',
++		  '-Wl,--as-needed',
+                 ],
+               }],
+               ['OS=="android" and android_full_debug==0 and target_arch!="arm64"', {
+@@ -3582,8 +3582,8 @@
+             'ldflags': [
+               # Specifically tell the linker to perform optimizations.
+               # See http://lwn.net/Articles/192624/ .
+-              '-Wl,-O1',
+-              '-Wl,--as-needed',
++#              '-Wl,-O1',
++#              '-Wl,--as-needed',
+             ],
+             'conditions' : [
+               ['no_gc_sections==0', {
+@@ -3947,8 +3947,8 @@
+                   '--sysroot=<(sysroot)',
+                 ],
+                 'ldflags': [
+-                  '--sysroot=<(sysroot)',
+-                  '<!(<(DEPTH)/build/linux/sysroot_ld_path.sh <(sysroot))',
++#                  '--sysroot=<(sysroot)',
++#                  '<!(<(DEPTH)/build/linux/sysroot_ld_path.sh <(sysroot))',
+                 ],
+               }]]
+           }],
+@@ -4270,7 +4270,7 @@
+             # cwd is when running the compiler, so the normal gyp path-munging
+             # fails us. This hack gets the right path.
+             'ldflags': [
+-              '-B<!(cd <(DEPTH) && pwd -P)/<(binutils_dir)',
++#              '-B<!(cd <(DEPTH) && pwd -P)/<(binutils_dir)',
+             ],
+           }],
+           # Some binutils 2.23 releases may or may not have new dtags enabled,
+@@ -4283,7 +4283,7 @@
+             # inside this file to allow usage of --no-as-needed and removal of
+             # this flag.
+             'ldflags': [
+-              '-Wl,--disable-new-dtags',
++#              '-Wl,--disable-new-dtags',
+             ],
+           }],
+           ['gcc_version>=47 and clang==0', {

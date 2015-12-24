@@ -1,0 +1,22 @@
+Index: heimdal-1.5.3/configure
+===================================================================
+--- a/configure
++++ b/configure
+@@ -12851,7 +12851,7 @@ else
+    ASN1_COMPILE_DEP=
+    SLC_DEP=
+ 
+-   ac_cv_prog_COMPILE_ET=${with_cross_tools}compile_et
++   ac_cv_prog_COMPILE_ET="${with_cross_tools}compile_et"
+ 
+ fi
+ 
+@@ -28373,7 +28373,7 @@ $as_echo "$as_me: Using our own com_err
+     COMPILE_ET="${ac_cv_prog_COMPILE_ET}"
+     localcomerr=yes
+ else
+-    COMPILE_ET="\$(top_builddir)/lib/com_err/compile_et"
++    COMPILE_ET="${ac_cv_prog_COMPILE_ET}"
+     DIR_com_err="com_err"
+     LIB_com_err="\$(top_builddir)/lib/com_err/libcom_err.la"
+     LIB_com_err_a="\$(top_builddir)/lib/com_err/.libs/libcom_err.a"

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+ifconfig wln0 192.168.1.1
+wpa_supplicant -B -Dwext -i wln0 -c /etc/wpa_supplicant.conf
+
+ifconfig gphy 192.168.118.91
+route add default gw 192.168.118.1
+
+hostapd /etc/hostapd.conf -B
+
+brctl addif br0 gphy
+
+ifconfig br0 192.168.1.2

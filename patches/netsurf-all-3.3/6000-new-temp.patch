@@ -1,0 +1,75 @@
+Index: netsurf-all-3.3/Makefile
+===================================================================
+--- netsurf-all-3.3.orig/Makefile
++++ netsurf-all-3.3/Makefile
+@@ -28,7 +28,7 @@ NETSURF_TARG := netsurf
+ NSGENBIND_TARG := nsgenbind
+ 
+ # Library targets
+-NSLIB_ALL_TARG := buildsystem libwapcaplet libparserutils libcss libhubbub libdom libnsbmp libnsgif librosprite libnsutils libutf8proc
++NSLIB_ALL_TARG := buildsystem libwapcaplet libparserutils libcss libhubbub libdom libnsbmp libnsgif librosprite libnsutils libutf8proc libnsfb
+ 
+ NSLIB_SVGTINY_TARG := libsvgtiny
+ 
+Index: netsurf-all-3.3/netsurf/gtk/scaffolding.h
+===================================================================
+--- netsurf-all-3.3.orig/netsurf/gtk/scaffolding.h
++++ netsurf-all-3.3/netsurf/gtk/scaffolding.h
+@@ -104,9 +104,9 @@ struct nsgtk_button_connect {
+ 	GtkToolItem			*button;
+ 	int				location; /* in toolbar */
+ 	bool				sensitivity;
+-	GtkImageMenuItem		*main;
+-	GtkImageMenuItem		*rclick;
+-	GtkImageMenuItem		*popup;
++	GtkWidget			*main;
++	GtkWidget			*rclick;
++	GtkWidget			*popup;
+ 	void				*mhandler; /* menu item clicked */
+ 	void				*bhandler; /* button clicked */
+ 	void				*dataplus; /* customization -> toolbar */
+Index: netsurf-all-3.3/netsurf/gtk/toolbar.c
+===================================================================
+--- netsurf-all-3.3.orig/netsurf/gtk/toolbar.c
++++ netsurf-all-3.3/netsurf/gtk/toolbar.c
+@@ -18,6 +18,7 @@
+ 
+ #include <string.h>
+ #include <gtk/gtk.h>
++#include <gobject/gtypemodule.h>
+ 
+ #include "desktop/browser.h"
+ #include "desktop/searchweb.h"
+@@ -34,6 +35,11 @@
+ #include "gtk/window.h"
+ #include "gtk/compat.h"
+ 
++#ifndef __GTK_ALIGNMENT_H__
++#define GTK_TYPE_ALIGNMENT                  (gtk_alignment_get_type ())
++#define GTK_ALIGNMENT(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), GTK_TYPE_ALIGNMENT, GtkWidget))
++#endif
++
+ static GtkTargetEntry entry = {(char *)"nsgtk_button_data",
+ 		GTK_TARGET_SAME_APP, 0};
+ 
+@@ -685,11 +691,7 @@ GtkWidget *nsgtk_toolbar_make_widget(str
+ 
+ /* gtk_tool_button_new() accepts NULL args */
+ #define MAKE_STOCKBUTTON(p, q) case p##_BUTTON: {\
+-		GtkStockItem item;\
+ 		char *label = NULL;\
+-		gtk_stock_lookup(#q, &item);\
+-		if (item.label != NULL)\
+-			label = remove_underscores(item.label, false);\
+ 		GtkWidget *w = GTK_WIDGET(gtk_tool_button_new(GTK_WIDGET(\
+ 				theme->image[p##_BUTTON]), label));\
+ 		if (label != NULL) {\
+@@ -752,7 +754,7 @@ GtkWidget *nsgtk_toolbar_make_widget(str
+ 	case WEBSEARCH_ITEM: {
+ 		if (edit_mode)
+ 			return GTK_WIDGET(gtk_tool_button_new(GTK_WIDGET(
+-					gtk_image_new_from_stock("gtk-find",
++					gtk_image_new_from_icon_name("gtk-find",
+ 					GTK_ICON_SIZE_LARGE_TOOLBAR)),
+ 					"[websearch]"));
+ 

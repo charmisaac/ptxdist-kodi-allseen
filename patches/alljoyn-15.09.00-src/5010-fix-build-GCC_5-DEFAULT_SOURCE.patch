@@ -1,0 +1,65 @@
+Index: alljoyn-15.09.00-src/alljoyn_c/samples/basic/basic_c_client.c
+===================================================================
+--- a/alljoyn_c/samples/basic/basic_c_client.c
++++ b/alljoyn_c/samples/basic/basic_c_client.c
+@@ -21,7 +21,7 @@
+  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  ******************************************************************************/
+ #ifndef _WIN32
+-#define _BSD_SOURCE /* usleep */
++#define _DEFAULT_SOURCE /* usleep */
+ #endif
+ #include <alljoyn_c/AjAPI.h>
+ 
+Index: alljoyn-15.09.00-src/alljoyn_c/samples/basic/basic_c_service.c
+===================================================================
+--- a/alljoyn_c/samples/basic/basic_c_service.c
++++ b/alljoyn_c/samples/basic/basic_c_service.c
+@@ -25,7 +25,7 @@
+  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  ******************************************************************************/
+ #ifndef _WIN32
+-#define _BSD_SOURCE /* usleep */
++#define _DEFAULT_SOURCE /* usleep */
+ #endif
+ #ifdef _WIN32
+ /* To avoid compilation error in VS generated due to use of snprintf */
+Index: alljoyn-15.09.00-src/alljoyn_c/samples/secure/DeskTopSharedKSClientC.c
+===================================================================
+--- a/alljoyn_c/samples/secure/DeskTopSharedKSClientC.c
++++ b/alljoyn_c/samples/secure/DeskTopSharedKSClientC.c
+@@ -22,7 +22,7 @@
+  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  ******************************************************************************/
+ #ifndef _WIN32
+-#define _BSD_SOURCE /* usleep */
++#define _DEFAULT_SOURCE /* usleep */
+ #endif
+ #include <alljoyn_c/AjAPI.h>
+ 
+Index: alljoyn-15.09.00-src/alljoyn_c/test/bbcclient.c
+===================================================================
+--- a/alljoyn_c/test/bbcclient.c
++++ b/alljoyn_c/test/bbcclient.c
+@@ -14,7 +14,7 @@
+  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  ******************************************************************************/
+ #ifndef _WIN32
+-#define _BSD_SOURCE /* usleep */
++#define _DEFAULT_SOURCE	/* usleep */
+ #endif
+ #include <alljoyn_c/AjAPI.h>
+ 
+Index: alljoyn-15.09.00-src/alljoyn_c/test/bbcservice.c
+===================================================================
+--- a/alljoyn_c/test/bbcservice.c
++++ b/alljoyn_c/test/bbcservice.c
+@@ -14,7 +14,7 @@
+  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  ******************************************************************************/
+ #ifndef _WIN32
+-#define _BSD_SOURCE /* usleep */
++#define _DEFAULT_SOURCE	/* usleep */
+ #endif
+ #include <alljoyn_c/AjAPI.h>
+ 

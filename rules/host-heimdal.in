@@ -1,0 +1,5 @@
+## SECTION=hosttools_noprompt
+
+config HOST_HEIMDAL
+	tristate
+	select HOST_XORG_LIB_XT

@@ -1,0 +1,10 @@
+## SECTION=system_libraries
+
+config GCONF
+        tristate
+	prompt "GCONF"
+	select ORBIT2
+	select LIBXML2
+	select DBUS_GLIB
+        help
+~             

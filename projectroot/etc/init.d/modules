@@ -1,0 +1,7 @@
+insmod /lib/modules/3.14.0-0.5/kernel/drivers/net/wireless/wl.ko
+insmod /lib/modules/3.14.0-0.5/kernel/drivers/pwm/pwm-pca9685.ko
+insmod /lib/modules/3.14.0-0.5/kernel/drivers/net/wan/dlci.ko
+insmod /lib/modules/3.14.0-0.5/kernel/drivers/net/wan/hdlc.ko
+insmod /lib/modules/3.14.0-0.5/kernel/drivers/net/phy/broadcom.ko
+insmod /lib/modules/3.14.0-0.5/kernel/net/wireless/cfg80211.ko
+insmod /lib/modules/3.14.0-0.5/kernel/net/rfkill/rfkill.ko

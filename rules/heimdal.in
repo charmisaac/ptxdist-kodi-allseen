@@ -1,0 +1,7 @@
+## SECTION=disk_and_file
+
+config HEIMDAL
+	tristate
+	select XORG_LIB_XT
+	select HOST_HEIMDAL
+	prompt "Heimdal                      "

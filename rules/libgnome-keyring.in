@@ -1,0 +1,7 @@
+## SECTION=system_libraries
+
+config LIBGNOME_KEYRING
+        tristate
+	prompt "LIBGNOME_KEYRING"
+        help
+~             

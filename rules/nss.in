@@ -1,0 +1,10 @@
+## SECTION=networking
+
+config NSS
+	tristate
+	select NSPR
+#	select HOST_NSPR
+#	select HOST_NSS
+	select SQLITE
+	prompt "nss"
+	help

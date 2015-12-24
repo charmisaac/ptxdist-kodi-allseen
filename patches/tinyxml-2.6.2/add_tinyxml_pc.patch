@@ -1,0 +1,29 @@
+Index: tinyxml-2.6.2/Makefile
+===================================================================
+--- tinyxml-2.6.2.orig/Makefile	2014-08-20 18:39:47.519435397 +0800
++++ tinyxml-2.6.2/Makefile	2014-08-20 19:26:20.083310892 +0800
+@@ -90,6 +90,8 @@
+ 	install -m 0644 tinystr.h $(DESTDIR)/usr/include/
+ 	install -m 0644 libtinyxml.so.0 $(DESTDIR)/usr/lib
+ 	cd $(DESTDIR)/usr/lib && ln -s libtinyxml.so.0 libtinyxml.so
++	mkdir -p $(DESTDIR)/usr/lib/pkgconfig
++	install -m 0644 tinyxml.pc $(DESTDIR)/usr/lib/pkgconfig/
+ 
+ #****************************************************************************
+ # Source files
+Index: tinyxml-2.6.2/tinyxml.pc
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ tinyxml-2.6.2/tinyxml.pc	2014-08-20 18:41:53.231429791 +0800
+@@ -0,0 +1,11 @@
++prefix=${pcfiledir}/../..
++exec_prefix=${prefix}
++libdir=${prefix}/lib
++toolexeclibdir=$(libdir)
++includedir=${prefix}/include
++ 
++Name: libtinyxml
++Description: Library supporting Tinyxml
++Version:
++Libs: -ltinyxml
++Cflags:

@@ -1,0 +1,366 @@
+Index: heimdal-1.5.3/lib/hdb/test_hdbkeys.c
+===================================================================
+--- heimdal-1.5.3.orig/lib/hdb/test_hdbkeys.c
++++ heimdal-1.5.3/lib/hdb/test_hdbkeys.c
+@@ -108,9 +108,9 @@ main(int argc, char **argv)
+ 
+     krb5_free_context(context);
+ 
+-    ret = base64_encode(data, length, &str);
++    ret = rk_base64_encode(data, length, &str);
+     if (ret < 0)
+-	errx(1, "base64_encode");
++	errx(1, "rk_base64_encode");
+ 
+     printf("keyset: %s\n", str);
+ 
+Index: heimdal-1.5.3/lib/hx509/file.c
+===================================================================
+--- heimdal-1.5.3.orig/lib/hx509/file.c
++++ heimdal-1.5.3/lib/hx509/file.c
+@@ -98,7 +98,7 @@ hx509_pem_write(hx509_context context, c
+ 	if (length > ENCODE_LINE_LENGTH)
+ 	    length = ENCODE_LINE_LENGTH;
+ 
+-	l = base64_encode(p, length, &line);
++	l = rk_base64_encode(p, length, &line);
+ 	if (l < 0) {
+ 	    hx509_set_error_string(context, 0, ENOMEM,
+ 				   "malloc - out of memory");
+@@ -255,7 +255,7 @@ hx509_pem_read(hx509_context context,
+ 	    }
+ 
+ 	    p = emalloc(i);
+-	    i = base64_decode(buf, p);
++	    i = rk_base64_decode(buf, p);
+ 	    if (i < 0) {
+ 		free(p);
+ 		goto out;
+Index: heimdal-1.5.3/lib/kadm5/ad.c
+===================================================================
+--- heimdal-1.5.3.orig/lib/kadm5/ad.c
++++ heimdal-1.5.3/lib/kadm5/ad.c
+@@ -1248,7 +1248,7 @@ kadm5_ad_randkey_principal(void *server_
+     {
+ 	char p[64];
+ 	krb5_generate_random_block(p, sizeof(p));
+-	plen = base64_encode(p, sizeof(p), &password);
++	plen = rk_base64_encode(p, sizeof(p), &password);
+ 	if (plen < 0)
+ 	    return ENOMEM;
+     }
+Index: heimdal-1.5.3/lib/krb5/send_to_kdc.c
+===================================================================
+--- heimdal-1.5.3.orig/lib/krb5/send_to_kdc.c
++++ heimdal-1.5.3/lib/krb5/send_to_kdc.c
+@@ -241,7 +241,7 @@ send_and_recv_http(krb5_socket_t fd,
+     char *request = NULL;
+     char *str;
+     int ret;
+-    int len = base64_encode(req->data, req->length, &str);
++    int len = rk_base64_encode(req->data, req->length, &str);
+ 
+     if(len < 0)
+ 	return -1;
+Index: heimdal-1.5.3/lib/roken/base64-test.c
+===================================================================
+--- heimdal-1.5.3.orig/lib/roken/base64-test.c
++++ heimdal-1.5.3/lib/roken/base64-test.c
+@@ -58,7 +58,7 @@ main(int argc, char **argv)
+     for(t = tests; t->data; t++) {
+ 	char *str;
+ 	int len;
+-	len = base64_encode(t->data, t->len, &str);
++	len = rk_base64_encode(t->data, t->len, &str);
+ 	if(strcmp(str, t->result) != 0) {
+ 	    fprintf(stderr, "failed test %d: %s != %s\n", numtest,
+ 		    str, t->result);
+@@ -66,7 +66,7 @@ main(int argc, char **argv)
+ 	}
+ 	free(str);
+ 	str = strdup(t->result);
+-	len = base64_decode(t->result, str);
++	len = rk_base64_decode(t->result, str);
+ 	if(len != t->len) {
+ 	    fprintf(stderr, "failed test %d: len %lu != %lu\n", numtest,
+ 		    (unsigned long)len, (unsigned long)t->len);
+@@ -81,12 +81,12 @@ main(int argc, char **argv)
+ 
+     {
+ 	char str[32];
+-	if(base64_decode("M=M=", str) != -1) {
++	if(rk_base64_decode("M=M=", str) != -1) {
+ 	    fprintf(stderr, "failed test %d: successful decode of `M=M='\n",
+ 		    numtest++);
+ 	    numerr++;
+ 	}
+-	if(base64_decode("MQ===", str) != -1) {
++	if(rk_base64_decode("MQ===", str) != -1) {
+ 	    fprintf(stderr, "failed test %d: successful decode of `MQ==='\n",
+ 		    numtest++);
+ 	    numerr++;
+Index: heimdal-1.5.3/lib/roken/base64.c
+===================================================================
+--- heimdal-1.5.3.orig/lib/roken/base64.c
++++ heimdal-1.5.3/lib/roken/base64.c
+@@ -52,7 +52,7 @@ pos(char c)
+ }
+ 
+ ROKEN_LIB_FUNCTION int ROKEN_LIB_CALL
+-base64_encode(const void *data, int size, char **str)
++rk_base64_encode(const void *data, int size, char **str)
+ {
+     char *s, *p;
+     int i;
+@@ -121,7 +121,7 @@ token_decode(const char *token)
+ }
+ 
+ ROKEN_LIB_FUNCTION int ROKEN_LIB_CALL
+-base64_decode(const char *str, void *data)
++rk_base64_decode(const char *str, void *data)
+ {
+     const char *p;
+     unsigned char *q;
+Index: heimdal-1.5.3/lib/roken/base64.h
+===================================================================
+--- heimdal-1.5.3.orig/lib/roken/base64.h
++++ heimdal-1.5.3/lib/roken/base64.h
+@@ -47,9 +47,9 @@
+ #endif
+ 
+ ROKEN_LIB_FUNCTION int ROKEN_LIB_CALL
+-base64_encode(const void *, int, char **);
++rk_base64_encode(const void *, int, char **);
+ 
+ ROKEN_LIB_FUNCTION int ROKEN_LIB_CALL
+-base64_decode(const char *, void *);
++rk_base64_decode(const char *, void *);
+ 
+ #endif
+Index: heimdal-1.5.3/lib/roken/version-script.map
+===================================================================
+--- heimdal-1.5.3.orig/lib/roken/version-script.map
++++ heimdal-1.5.3/lib/roken/version-script.map
+@@ -2,8 +2,8 @@ HEIMDAL_ROKEN_1.0 {
+ 	global:
+ 		arg_printusage;
+ 		arg_printusage_i18n;
+-		base64_decode;
+-		base64_encode;
++		rk_base64_decode;
++		rk_base64_encode;
+ 		cgetcap;
+ 		cgetclose;
+ 		cgetmatch;
+Index: heimdal-1.5.3/appl/ftp/ftp/gssapi.c
+===================================================================
+--- heimdal-1.5.3.orig/appl/ftp/ftp/gssapi.c
++++ heimdal-1.5.3/appl/ftp/ftp/gssapi.c
+@@ -212,7 +212,7 @@ gss_adat(void *app_data, void *buf, size
+ 	free(bindings);
+ 
+     if(output_token.length) {
+-	if(base64_encode(output_token.value, output_token.length, &p) < 0) {
++	if(rk_base64_encode(output_token.value, output_token.length, &p) < 0) {
+ 	    reply(535, "Out of memory base64-encoding.");
+ 	    return -1;
+ 	}
+@@ -420,7 +420,7 @@ gss_auth(void *app_data, char *host)
+ 	    input.length = 0;
+ 	}
+ 	if (output_token.length != 0) {
+-	    base64_encode(output_token.value, output_token.length, &p);
++	    rk_base64_encode(output_token.value, output_token.length, &p);
+ 	    gss_release_buffer(&min_stat, &output_token);
+ 	    n = command("ADAT %s", p);
+ 	    free(p);
+@@ -443,7 +443,7 @@ gss_auth(void *app_data, char *host)
+ 	    } else {
+ 		p+=5;
+ 		input.value = malloc(strlen(p));
+-		input.length = base64_decode(p, input.value);
++		input.length = rk_base64_decode(p, input.value);
+ 	    }
+ 	} else {
+ 	    if(code != 235) {
+Index: heimdal-1.5.3/appl/ftp/ftp/security.c
+===================================================================
+--- heimdal-1.5.3.orig/appl/ftp/ftp/security.c
++++ heimdal-1.5.3/appl/ftp/ftp/security.c
+@@ -348,7 +348,7 @@ sec_read_msg(char *s, int level)
+     int return_code;
+ 
+     buf = malloc(strlen(s));
+-    len = base64_decode(s + 4, buf); /* XXX */
++    len = rk_base64_decode(s + 4, buf); /* XXX */
+ 
+     len = (*mech->decode)(app_data, buf, len, level);
+     if(len < 0)
+@@ -386,7 +386,7 @@ sec_vfprintf(FILE *f, const char *fmt, v
+ 	printf("Failed to encode command.\n");
+ 	return -1;
+     }
+-    if(base64_encode(enc, len, &buf) < 0){
++    if(rk_base64_encode(enc, len, &buf) < 0){
+ 	free(enc);
+ 	printf("Out of memory base64-encoding.\n");
+ 	return -1;
+@@ -469,7 +469,7 @@ adat(char *auth_data)
+     if(mech && !sec_complete) {
+ 	void *buf = malloc(strlen(auth_data));
+ 	size_t len;
+-	len = base64_decode(auth_data, buf);
++	len = rk_base64_decode(auth_data, buf);
+ 	(*mech->adat)(app_data, buf, len);
+ 	free(buf);
+     } else
+@@ -554,7 +554,7 @@ void mec(char *msg, enum protection_leve
+ 	reply(501, "Failed to allocate %lu", (unsigned long)buf_size);
+ 	return;
+     }
+-    len = base64_decode(msg, buf);
++    len = rk_base64_decode(msg, buf);
+     command_prot = level;
+     if(len == (size_t)-1) {
+ 	free(buf);
+Index: heimdal-1.5.3/appl/ftp/ftpd/gssapi.c
+===================================================================
+--- heimdal-1.5.3.orig/appl/ftp/ftpd/gssapi.c
++++ heimdal-1.5.3/appl/ftp/ftpd/gssapi.c
+@@ -212,7 +212,7 @@ gss_adat(void *app_data, void *buf, size
+ 	free(bindings);
+ 
+     if(output_token.length) {
+-	if(base64_encode(output_token.value, output_token.length, &p) < 0) {
++	if(rk_base64_encode(output_token.value, output_token.length, &p) < 0) {
+ 	    reply(535, "Out of memory base64-encoding.");
+ 	    return -1;
+ 	}
+@@ -420,7 +420,7 @@ gss_auth(void *app_data, char *host)
+ 	    input.length = 0;
+ 	}
+ 	if (output_token.length != 0) {
+-	    base64_encode(output_token.value, output_token.length, &p);
++	    rk_base64_encode(output_token.value, output_token.length, &p);
+ 	    gss_release_buffer(&min_stat, &output_token);
+ 	    n = command("ADAT %s", p);
+ 	    free(p);
+@@ -443,7 +443,7 @@ gss_auth(void *app_data, char *host)
+ 	    } else {
+ 		p+=5;
+ 		input.value = malloc(strlen(p));
+-		input.length = base64_decode(p, input.value);
++		input.length = rk_base64_decode(p, input.value);
+ 	    }
+ 	} else {
+ 	    if(code != 235) {
+Index: heimdal-1.5.3/appl/ftp/ftpd/security.c
+===================================================================
+--- heimdal-1.5.3.orig/appl/ftp/ftpd/security.c
++++ heimdal-1.5.3/appl/ftp/ftpd/security.c
+@@ -348,7 +348,7 @@ sec_read_msg(char *s, int level)
+     int return_code;
+ 
+     buf = malloc(strlen(s));
+-    len = base64_decode(s + 4, buf); /* XXX */
++    len = rk_base64_decode(s + 4, buf); /* XXX */
+ 
+     len = (*mech->decode)(app_data, buf, len, level);
+     if(len < 0)
+@@ -386,7 +386,7 @@ sec_vfprintf(FILE *f, const char *fmt, v
+ 	printf("Failed to encode command.\n");
+ 	return -1;
+     }
+-    if(base64_encode(enc, len, &buf) < 0){
++    if(rk_base64_encode(enc, len, &buf) < 0){
+ 	free(enc);
+ 	printf("Out of memory base64-encoding.\n");
+ 	return -1;
+@@ -469,7 +469,7 @@ adat(char *auth_data)
+     if(mech && !sec_complete) {
+ 	void *buf = malloc(strlen(auth_data));
+ 	size_t len;
+-	len = base64_decode(auth_data, buf);
++	len = rk_base64_decode(auth_data, buf);
+ 	(*mech->adat)(app_data, buf, len);
+ 	free(buf);
+     } else
+@@ -554,7 +554,7 @@ void mec(char *msg, enum protection_leve
+ 	reply(501, "Failed to allocate %lu", (unsigned long)buf_size);
+ 	return;
+     }
+-    len = base64_decode(msg, buf);
++    len = rk_base64_decode(msg, buf);
+     command_prot = level;
+     if(len == (size_t)-1) {
+ 	free(buf);
+Index: heimdal-1.5.3/appl/test/http_client.c
+===================================================================
+--- heimdal-1.5.3.orig/appl/test/http_client.c
++++ heimdal-1.5.3/appl/test/http_client.c
+@@ -388,7 +388,7 @@ main(int argc, char **argv)
+ 		    if (len == 0)
+ 			errx(1, "invalid Negotiate token");
+ 		    input_token.value = emalloc(len);
+-		    len = base64_decode(&h[i], input_token.value);
++		    len = rk_base64_decode(&h[i], input_token.value);
+ 		    if (len < 0)
+ 			errx(1, "invalid base64 Negotiate token %s", &h[i]);
+ 		    input_token.length = len;
+@@ -471,7 +471,7 @@ main(int argc, char **argv)
+ 		if (output_token.length) {
+ 		    char *neg_token;
+ 
+-		    base64_encode(output_token.value,
++		    rk_base64_encode(output_token.value,
+ 				  output_token.length,
+ 				  &neg_token);
+ 
+Index: heimdal-1.5.3/kdc/connect.c
+===================================================================
+--- heimdal-1.5.3.orig/kdc/connect.c
++++ heimdal-1.5.3/kdc/connect.c
+@@ -695,7 +695,7 @@ handle_http_tcp (krb5_context context,
+ 	free(data);
+ 	return -1;
+     }
+-    len = base64_decode(t, data);
++    len = rk_base64_decode(t, data);
+     if(len <= 0){
+ 	const char *msg =
+ 	    " 404 Not found\r\n"
+Index: heimdal-1.5.3/kuser/kdigest.c
+===================================================================
+--- heimdal-1.5.3.orig/kuser/kdigest.c
++++ heimdal-1.5.3/kuser/kdigest.c
+@@ -485,7 +485,7 @@ ntlm_server_init(struct ntlm_server_init
+      *
+      */
+ 
+-    base64_encode(data.data, data.length, &s);
++    rk_base64_encode(data.data, data.length, &s);
+     free(data.data);
+     printf("type2=%s\n", s);
+     free(s);
+@@ -498,7 +498,7 @@ ntlm_server_init(struct ntlm_server_init
+     if (ret)
+ 	krb5_err(context, 1, ret, "krb5_ntlm_init_get_opaque");
+ 
+-    base64_encode(opaque.data, opaque.length, &s);
++    rk_base64_encode(opaque.data, opaque.length, &s);
+     krb5_data_free(&opaque);
+     printf("opaque=%s\n", s);
+     free(s);
+Index: heimdal-1.5.3/lib/ipc/server.c
+===================================================================
+--- heimdal-1.5.3.orig/lib/ipc/server.c
++++ heimdal-1.5.3/lib/ipc/server.c
+@@ -822,7 +822,7 @@ handle_http_tcp(struct client *c)
+ 	free(data);
+ 	return NULL;
+     }
+-    len = base64_decode(t, data);
++    len = rk_base64_decode(t, data);
+     if(len <= 0){
+ 	const char *msg =
+ 	    " 404 Not found\r\n"

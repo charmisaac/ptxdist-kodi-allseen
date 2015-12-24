@@ -1,0 +1,6 @@
+nss-3.21-standalone-1.patch
+1000-fix-cross-compile-setup.patch
+2000-modify-shlibsign-path.patch
+# 3000-fix-PR_STATIC_ASSERT-size.patch
+4000-add-package-install-path.patch
+5000-fix-dist-dir-is-already-made.patch

@@ -1,0 +1,22 @@
+Index: ncurses-5.9/configure
+===================================================================
+--- ncurses-5.9.orig/configure
++++ ncurses-5.9/configure
+@@ -7031,7 +7031,7 @@ else
+   echo "$as_me: failed program was:" >&5
+ cat conftest.$ac_ext >&5
+ cf_save="$CPPFLAGS"
+-	 CPPFLAGS="$CPPFLAGS -D_GNU_SOURCE"
++	 CPPFLAGS="$CPPFLAGS -P -D_GNU_SOURCE"
+ 	 cat >conftest.$ac_ext <<_ACEOF
+ #line 7036 "configure"
+ #include "confdefs.h"
+@@ -7074,7 +7074,7 @@ rm -f conftest.$ac_objext conftest.$ac_e
+ fi
+ echo "$as_me:7075: result: $cf_cv_gnu_source" >&5
+ echo "${ECHO_T}$cf_cv_gnu_source" >&6
+-test "$cf_cv_gnu_source" = yes && CPPFLAGS="$CPPFLAGS -D_GNU_SOURCE"
++test "$cf_cv_gnu_source" = yes && CPPFLAGS="$CPPFLAGS -P -D_GNU_SOURCE"
+ 
+ 	;;
+ mirbsd*) #(vi

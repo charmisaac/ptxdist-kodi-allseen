@@ -1,0 +1,33 @@
+Index: chrome-39.0.2132.2/src/components/storage_monitor/storage_monitor_linux.cc
+===================================================================
+--- chrome-39.0.2132.2.orig/src/components/storage_monitor/storage_monitor_linux.cc
++++ chrome-39.0.2132.2/src/components/storage_monitor/storage_monitor_linux.cc
+@@ -8,6 +8,7 @@
+ 
+ #include <mntent.h>
+ #include <stdio.h>
++#include <sys/stat.h>
+ 
+ #include <list>
+ 
+Index: chrome-39.0.2132.2/src/testing/gtest/include/gtest/gtest-typed-test.h
+===================================================================
+--- chrome-39.0.2132.2.orig/src/testing/gtest/include/gtest/gtest-typed-test.h
++++ chrome-39.0.2132.2/src/testing/gtest/include/gtest/gtest-typed-test.h
+@@ -32,6 +32,9 @@
+ #ifndef GTEST_INCLUDE_GTEST_GTEST_TYPED_TEST_H_
+ #define GTEST_INCLUDE_GTEST_GTEST_TYPED_TEST_H_
+ 
++#pragma GCC diagnostic push
++#pragma GCC diagnostic warning "-Wunused"
++
+ // This header implements typed tests and type-parameterized tests.
+ 
+ // Typed (aka type-driven) tests repeat the same test for types in a
+@@ -256,4 +259,6 @@ INSTANTIATE_TYPED_TEST_CASE_P(My, FooTes
+ 
+ #endif  // GTEST_HAS_TYPED_TEST_P
+ 
++#pragma GCC diagnostic pop
++
+ #endif  // GTEST_INCLUDE_GTEST_GTEST_TYPED_TEST_H_

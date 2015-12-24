@@ -1,0 +1,6 @@
+## SECTION=system_libraries
+
+config LIBGSSAPI
+	tristate
+	prompt "libgssapi"
+	help

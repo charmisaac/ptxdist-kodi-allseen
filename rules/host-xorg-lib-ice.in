@@ -1,0 +1,7 @@
+## SECTION=hosttools_noprompt
+
+config HOST_XORG_LIB_ICE
+	tristate
+	default ALLYES
+	select HOST_XORG_PROTO_X
+	select HOST_XORG_LIB_X11

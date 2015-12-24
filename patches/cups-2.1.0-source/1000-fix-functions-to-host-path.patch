@@ -1,0 +1,41 @@
+Index: cups-2.1.0-source/man/Makefile
+===================================================================
+--- cups-2.1.0-source.orig/man/Makefile
++++ cups-2.1.0-source/man/Makefile
+@@ -206,19 +206,19 @@ html:	$(MAN1) $(MAN5) $(MAN7) $(MAN8) ma
+ 	echo Converting man pages to HTML...
+ 	for file in $(MAN1); do \
+ 		echo "    $$file..."; \
+-		./mantohtml `basename $$file .$(MAN1EXT)`.man >../doc/help/man-`basename $$file .$(MAN1EXT)`.html; \
++		mantohtml `basename $$file .$(MAN1EXT)`.man >../doc/help/man-`basename $$file .$(MAN1EXT)`.html; \
+ 	done
+ 	for file in $(MAN5); do \
+ 		echo "    $$file..."; \
+-		./mantohtml `basename $$file .$(MAN5EXT)`.man >../doc/help/man-`basename $$file .$(MAN5EXT)`.html; \
++		mantohtml `basename $$file .$(MAN5EXT)`.man >../doc/help/man-`basename $$file .$(MAN5EXT)`.html; \
+ 	done
+ 	for file in $(MAN7); do \
+ 		echo "    $$file..."; \
+-		./mantohtml `basename $$file .$(MAN7EXT)`.man >../doc/help/man-`basename $$file .$(MAN7EXT)`.html; \
++		mantohtml `basename $$file .$(MAN7EXT)`.man >../doc/help/man-`basename $$file .$(MAN7EXT)`.html; \
+ 	done
+ 	for file in $(MAN8); do \
+ 		echo "    $$file..."; \
+-		./mantohtml `basename $$file .$(MAN8EXT)`.man >../doc/help/man-`basename $$file .$(MAN8EXT)`.html; \
++		mantohtml `basename $$file .$(MAN8EXT)`.man >../doc/help/man-`basename $$file .$(MAN8EXT)`.html; \
+ 	done
+ 
+ mantohtml:	mantohtml.o ../cups/$(LIBCUPSSTATIC)
+Index: cups-2.1.0-source/ppdc/Makefile
+===================================================================
+--- cups-2.1.0-source.orig/ppdc/Makefile
++++ cups-2.1.0-source/ppdc/Makefile
+@@ -243,7 +243,7 @@ genstrings:		genstrings.o libcupsppdc.a
+ 		libcupsppdc.a ../cups/$(LIBCUPSSTATIC) $(LIBGSSAPI) $(SSLLIBS) \
+ 		$(DNSSDLIBS) $(COMMONLIBS) $(LIBZ)
+ 	echo Generating localization strings...
+-	./genstrings >sample.c
++	genstrings >sample.c
+ 
+ 
+ #

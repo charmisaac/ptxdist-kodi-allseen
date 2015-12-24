@@ -1,0 +1,7 @@
+## SECTION=netsurf_libraries
+
+config LIBHARU
+	tristate
+	prompt "libharu"
+	help
+	  HARU is a free, cross platform, open-sourced software library for generating PDF. It supports the following features.

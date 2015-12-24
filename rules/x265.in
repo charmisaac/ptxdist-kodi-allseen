@@ -1,0 +1,9 @@
+## SECTION=multimedia_libs
+
+config X265
+	tristate
+	prompt "x265"
+	select HOST_YASM
+	help
+	  X265 is a library for reading and editing the meta-data
+	  of several popular audio formats.

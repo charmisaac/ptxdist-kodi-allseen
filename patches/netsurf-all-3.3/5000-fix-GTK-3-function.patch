@@ -1,0 +1,524 @@
+Index: netsurf-all-3.3/netsurf/gtk/about.c
+===================================================================
+--- netsurf-all-3.3.orig/netsurf/gtk/about.c
++++ netsurf-all-3.3/netsurf/gtk/about.c
+@@ -122,7 +122,7 @@ void nsgtk_about_dialog_init(GtkWindow *
+ 	nsgtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
+ 
+ 	/* Add the OK button */
+-	gtk_dialog_add_button(GTK_DIALOG(dialog), GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE);
++	gtk_dialog_add_button(GTK_DIALOG(dialog), "Close", GTK_RESPONSE_CLOSE);
+ 	gtk_dialog_set_default_response(GTK_DIALOG(dialog), GTK_RESPONSE_CLOSE);
+ 
+ 	/* Add the credits button */
+Index: netsurf-all-3.3/netsurf/gtk/download.c
+===================================================================
+--- netsurf-all-3.3.orig/netsurf/gtk/download.c
++++ netsurf-all-3.3/netsurf/gtk/download.c
+@@ -595,9 +595,9 @@ static gchar* nsgtk_download_dialog_show
+ 						    "\n\n<small>%s</small>",
+ 						    message, info);
+ 
+-	gtk_dialog_add_buttons(GTK_DIALOG(dialog), GTK_STOCK_SAVE,
+-			       GTK_RESPONSE_DOWNLOAD, GTK_STOCK_CANCEL,
+-			       GTK_RESPONSE_CANCEL, GTK_STOCK_SAVE_AS,
++	gtk_dialog_add_buttons(GTK_DIALOG(dialog), "Save",
++			       GTK_RESPONSE_DOWNLOAD, "Cancel",
++			       GTK_RESPONSE_CANCEL, "Save As",
+ 			       GTK_RESPONSE_SAVE_AS, NULL);
+ 
+ 	gint result = gtk_dialog_run(GTK_DIALOG(dialog));
+@@ -611,8 +611,8 @@ static gchar* nsgtk_download_dialog_show
+ 			(messages_get("gtkSave"),
+ 			 nsgtk_download_parent,
+ 			 GTK_FILE_CHOOSER_ACTION_SAVE,
+-			 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+-			 GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
++			 "Cancel", GTK_RESPONSE_CANCEL,
++			 "Save", GTK_RESPONSE_ACCEPT,
+ 			 NULL);
+ 		gtk_file_chooser_set_current_name
+ 			(GTK_FILE_CHOOSER(dialog), filename);
+Index: netsurf-all-3.3/netsurf/gtk/history.c
+===================================================================
+--- netsurf-all-3.3.orig/netsurf/gtk/history.c
++++ netsurf-all-3.3/netsurf/gtk/history.c
+@@ -171,8 +171,8 @@ MENUHANDLER(export)
+ 	save_dialog = gtk_file_chooser_dialog_new("Save File",
+ 			wndHistory,
+ 			GTK_FILE_CHOOSER_ACTION_SAVE,
+-			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+-			GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
++			"Cancel", GTK_RESPONSE_CANCEL,
++			"Save", GTK_RESPONSE_ACCEPT,
+ 			NULL);
+ 	
+ 	gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(save_dialog),
+Index: netsurf-all-3.3/netsurf/gtk/hotlist.c
+===================================================================
+--- netsurf-all-3.3.orig/netsurf/gtk/hotlist.c
++++ netsurf-all-3.3/netsurf/gtk/hotlist.c
+@@ -178,8 +178,8 @@ MENUHANDLER(export)
+ 	save_dialog = gtk_file_chooser_dialog_new("Save File",
+ 			wndHotlist,
+ 			GTK_FILE_CHOOSER_ACTION_SAVE,
+-			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+-			GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
++			"Cancel", GTK_RESPONSE_CANCEL,
++			"Save", GTK_RESPONSE_ACCEPT,
+ 			NULL);
+ 	
+ 	gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(save_dialog),
+Index: netsurf-all-3.3/netsurf/gtk/menu.c
+===================================================================
+--- netsurf-all-3.3.orig/netsurf/gtk/menu.c
++++ netsurf-all-3.3/netsurf/gtk/menu.c
+@@ -25,6 +25,11 @@
+ #include "utils/messages.h"
+ #include "utils/utils.h"
+ 
++#ifndef __GTK_IMAGE_MENU_ITEM_H__
++#define GTK_TYPE_IMAGE_MENU_ITEM            (gtk_image_menu_item_get_type ())
++#define GTK_IMAGE_MENU_ITEM(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GTK_TYPE_IMAGE_MENU_ITEM, GtkWidget))
++#endif
++
+ /**
+  * adds image menu item to specified menu
+  * \param menu the menu to add the item to
+@@ -35,7 +40,7 @@
+  */
+ 
+ static bool nsgtk_menu_add_image_item(GtkMenu *menu,
+-		GtkImageMenuItem **item, const char *message,
++		GtkWidget **item, const char *message,
+ 		const char *messageAccel, GtkAccelGroup *group)
+ {
+ 	unsigned int key;
+Index: netsurf-all-3.3/netsurf/gtk/menu.h
+===================================================================
+--- netsurf-all-3.3.orig/netsurf/gtk/menu.h
++++ netsurf-all-3.3/netsurf/gtk/menu.h
+@@ -23,100 +23,100 @@
+ struct nsgtk_file_menu {
+ 	GtkMenuItem                     *file; /* File menu item on menubar */
+ 	GtkMenu				*file_menu;
+-	GtkImageMenuItem		*newwindow_menuitem;
+-	GtkImageMenuItem		*newtab_menuitem;
+-	GtkImageMenuItem		*openfile_menuitem;
+-	GtkImageMenuItem		*closewindow_menuitem;
+-	GtkImageMenuItem		*savepage_menuitem;
+-	GtkImageMenuItem		*export_menuitem;
++	GtkWidget		*newwindow_menuitem;
++	GtkWidget		*newtab_menuitem;
++	GtkWidget		*openfile_menuitem;
++	GtkWidget		*closewindow_menuitem;
++	GtkWidget		*savepage_menuitem;
++	GtkWidget		*export_menuitem;
+ 	struct nsgtk_export_submenu	*export_submenu;
+-	GtkImageMenuItem		*printpreview_menuitem;
+-	GtkImageMenuItem		*print_menuitem;
+-	GtkImageMenuItem		*quit_menuitem;
++	GtkWidget		*printpreview_menuitem;
++	GtkWidget		*print_menuitem;
++	GtkWidget		*quit_menuitem;
+ };
+ 
+ struct nsgtk_edit_menu {
+ 	GtkMenuItem             *edit; /* Edit menu item on menubar */
+ 	GtkMenu			*edit_menu;
+-	GtkImageMenuItem	*cut_menuitem;
+-	GtkImageMenuItem	*copy_menuitem;
+-	GtkImageMenuItem	*paste_menuitem;
+-	GtkImageMenuItem	*delete_menuitem;
+-	GtkImageMenuItem	*selectall_menuitem;
+-	GtkImageMenuItem	*find_menuitem;
+-	GtkImageMenuItem	*preferences_menuitem;
++	GtkWidget	*cut_menuitem;
++	GtkWidget	*copy_menuitem;
++	GtkWidget	*paste_menuitem;
++	GtkWidget	*delete_menuitem;
++	GtkWidget	*selectall_menuitem;
++	GtkWidget	*find_menuitem;
++	GtkWidget	*preferences_menuitem;
+ };
+ 
+ struct nsgtk_view_menu {
+ 	GtkMenuItem             *view; /* View menu item on menubar */
+ 	GtkMenu			*view_menu; /* gtk menu attached to menu item */
+-	GtkImageMenuItem		*stop_menuitem;
+-	GtkImageMenuItem		*reload_menuitem;
+-	GtkImageMenuItem		*scaleview_menuitem;
++	GtkWidget		*stop_menuitem;
++	GtkWidget		*reload_menuitem;
++	GtkWidget		*scaleview_menuitem;
+ 	struct nsgtk_scaleview_submenu	*scaleview_submenu;
+-	GtkImageMenuItem		*fullscreen_menuitem;
+-	GtkImageMenuItem		*images_menuitem;
++	GtkWidget		*fullscreen_menuitem;
++	GtkWidget		*images_menuitem;
+ 	struct nsgtk_images_submenu	*images_submenu;
+-	GtkImageMenuItem		*toolbars_menuitem;
++	GtkWidget		*toolbars_menuitem;
+ 	struct nsgtk_toolbars_submenu	*toolbars_submenu;
+-	GtkImageMenuItem		*tabs_menuitem;
++	GtkWidget		*tabs_menuitem;
+ 	struct nsgtk_tabs_submenu	*tabs_submenu;
+-	GtkImageMenuItem		*savewindowsize_menuitem;
++	GtkWidget		*savewindowsize_menuitem;
+ };
+ 
+ struct nsgtk_nav_menu {
+ 	GtkMenuItem             *nav; /* Nav menu item on menubar */
+ 	GtkMenu			*nav_menu;
+-	GtkImageMenuItem	*back_menuitem;
+-	GtkImageMenuItem	*forward_menuitem;
+-	GtkImageMenuItem	*home_menuitem;
+-	GtkImageMenuItem	*localhistory_menuitem;
+-	GtkImageMenuItem	*globalhistory_menuitem;
+-	GtkImageMenuItem	*addbookmarks_menuitem;
+-	GtkImageMenuItem	*showbookmarks_menuitem;
+-	GtkImageMenuItem	*openlocation_menuitem;
++	GtkWidget	*back_menuitem;
++	GtkWidget	*forward_menuitem;
++	GtkWidget	*home_menuitem;
++	GtkWidget	*localhistory_menuitem;
++	GtkWidget	*globalhistory_menuitem;
++	GtkWidget	*addbookmarks_menuitem;
++	GtkWidget	*showbookmarks_menuitem;
++	GtkWidget	*openlocation_menuitem;
+ };
+ 
+ struct nsgtk_tools_menu {
+ 	GtkMenuItem  *tools; /* Tools menu item on menubar */
+ 	GtkMenu	*tools_menu;
+ 
+-	GtkImageMenuItem *showcookies_menuitem;
+-	GtkImageMenuItem *downloads_menuitem;
+-	GtkImageMenuItem *developer_menuitem;
++	GtkWidget *showcookies_menuitem;
++	GtkWidget *downloads_menuitem;
++	GtkWidget *developer_menuitem;
+ 	struct nsgtk_developer_submenu *developer_submenu;
+ };
+ 
+ struct nsgtk_help_menu {
+ 	GtkMenuItem             *help; /* Help menu item on menubar */
+ 	GtkMenu			*help_menu;
+-	GtkImageMenuItem	*contents_menuitem;
+-	GtkImageMenuItem	*guide_menuitem;
+-	GtkImageMenuItem	*info_menuitem;
+-	GtkImageMenuItem	*about_menuitem;
++	GtkWidget	*contents_menuitem;
++	GtkWidget	*guide_menuitem;
++	GtkWidget	*info_menuitem;
++	GtkWidget	*about_menuitem;
+ };
+ 
+ 
+ struct nsgtk_export_submenu {
+ 	GtkMenu			*export_menu;
+-	GtkImageMenuItem	*plaintext_menuitem;
+-	GtkImageMenuItem	*drawfile_menuitem;
+-	GtkImageMenuItem	*postscript_menuitem;
+-	GtkImageMenuItem	*pdf_menuitem;
++	GtkWidget	*plaintext_menuitem;
++	GtkWidget	*drawfile_menuitem;
++	GtkWidget	*postscript_menuitem;
++	GtkWidget	*pdf_menuitem;
+ };
+ 
+ struct nsgtk_scaleview_submenu {
+ 	GtkMenu			*scaleview_menu;
+-	GtkImageMenuItem	*zoomplus_menuitem;
+-	GtkImageMenuItem	*zoomminus_menuitem;
+-	GtkImageMenuItem	*zoomnormal_menuitem;
++	GtkWidget	*zoomplus_menuitem;
++	GtkWidget	*zoomminus_menuitem;
++	GtkWidget	*zoomnormal_menuitem;
+ };
+ 
+ struct nsgtk_tabs_submenu {
+ 	GtkMenu			*tabs_menu;
+-	GtkImageMenuItem	*nexttab_menuitem;
+-	GtkImageMenuItem	*prevtab_menuitem;
+-	GtkImageMenuItem	*closetab_menuitem;
++	GtkWidget	*nexttab_menuitem;
++	GtkWidget	*prevtab_menuitem;
++	GtkWidget	*closetab_menuitem;
+ };
+ 
+ struct nsgtk_images_submenu {
+@@ -134,10 +134,10 @@ struct nsgtk_toolbars_submenu {
+ struct nsgtk_developer_submenu {
+ 	GtkMenu			*developer_menu;
+ 
+-	GtkImageMenuItem *viewsource_menuitem;
+-	GtkImageMenuItem	*toggledebugging_menuitem;
+-	GtkImageMenuItem	*debugboxtree_menuitem;
+-	GtkImageMenuItem	*debugdomtree_menuitem;
++	GtkWidget *viewsource_menuitem;
++	GtkWidget	*toggledebugging_menuitem;
++	GtkWidget	*debugboxtree_menuitem;
++	GtkWidget	*debugdomtree_menuitem;
+ };
+ 
+ 
+@@ -155,55 +155,55 @@ struct nsgtk_bar_submenu {
+ struct nsgtk_popup_menu {
+ 	GtkMenu	*popup_menu;
+ 
+-	GtkImageMenuItem *file_menuitem;
++	GtkWidget *file_menuitem;
+ 	struct nsgtk_file_menu *file_submenu;
+ 
+-	GtkImageMenuItem *edit_menuitem;
++	GtkWidget *edit_menuitem;
+ 	struct nsgtk_edit_menu *edit_submenu;
+ 
+-	GtkImageMenuItem *view_menuitem;
++	GtkWidget *view_menuitem;
+ 	struct nsgtk_view_menu *view_submenu;
+ 
+-	GtkImageMenuItem *nav_menuitem;
++	GtkWidget *nav_menuitem;
+ 	struct nsgtk_nav_menu *nav_submenu;
+ 
+-	GtkImageMenuItem *tabs_menuitem;
++	GtkWidget *tabs_menuitem;
+ 	struct nsgtk_tabs_submenu *tabs_submenu;
+ 
+-	GtkImageMenuItem *tools_menuitem;
++	GtkWidget *tools_menuitem;
+ 	struct nsgtk_tools_menu *tools_submenu;
+ 
+-	GtkImageMenuItem *help_menuitem;
++	GtkWidget *help_menuitem;
+ 	struct nsgtk_help_menu *help_submenu;
+ 
+ 	GtkWidget *first_separator;
+ 
+ 	/* navigation entries */
+-	GtkImageMenuItem *back_menuitem;
+-	GtkImageMenuItem *forward_menuitem;
++	GtkWidget *back_menuitem;
++	GtkWidget *forward_menuitem;
+ 
+ 	GtkWidget *third_separator;
+ 
+ 	/* view entries */
+-	GtkImageMenuItem *stop_menuitem;
+-	GtkImageMenuItem *reload_menuitem;
++	GtkWidget *stop_menuitem;
++	GtkWidget *reload_menuitem;
+ 
+-	GtkImageMenuItem *cut_menuitem;
+-	GtkImageMenuItem *copy_menuitem;
+-	GtkImageMenuItem *paste_menuitem;
+-	GtkImageMenuItem *customize_menuitem;
++	GtkWidget *cut_menuitem;
++	GtkWidget *copy_menuitem;
++	GtkWidget *paste_menuitem;
++	GtkWidget *customize_menuitem;
+ 
+ };
+ 
+ struct nsgtk_link_menu {
+ 	GtkMenu	*link_menu;
+ 
+-	GtkImageMenuItem *opentab_menuitem;
+-	GtkImageMenuItem *openwin_menuitem;
++	GtkWidget *opentab_menuitem;
++	GtkWidget *openwin_menuitem;
+ 
+-	GtkImageMenuItem *save_menuitem;
+-	GtkImageMenuItem *bookmark_menuitem;
+-	GtkImageMenuItem *copy_menuitem;
++	GtkWidget *save_menuitem;
++	GtkWidget *bookmark_menuitem;
++	GtkWidget *copy_menuitem;
+ };
+ 
+ /**
+Index: netsurf-all-3.3/netsurf/gtk/preferences.c
+===================================================================
+--- netsurf-all-3.3.orig/netsurf/gtk/preferences.c
++++ netsurf-all-3.3/netsurf/gtk/preferences.c
+@@ -712,9 +712,9 @@ nsgtk_preferences_buttonAddTheme_clicked
+ 	fc  = gtk_file_chooser_dialog_new(messages_get("gtkAddThemeTitle"),
+ 					  GTK_WINDOW(priv->dialog),
+ 					  GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+-					  GTK_STOCK_OK,
++					  "Ok",
+ 					  GTK_RESPONSE_ACCEPT,
+-					  GTK_STOCK_CANCEL,
++					  "Cancel",
+ 					  GTK_RESPONSE_CANCEL,
+ 					  NULL);
+ 	len = SLEN("themes") + strlen(res_dir_location) + 1;
+Index: netsurf-all-3.3/netsurf/gtk/scaffolding.c
+===================================================================
+--- netsurf-all-3.3.orig/netsurf/gtk/scaffolding.c
++++ netsurf-all-3.3/netsurf/gtk/scaffolding.c
+@@ -24,6 +24,7 @@
+ #include <stdlib.h>
+ #include <gtk/gtk.h>
+ #include <gdk-pixbuf/gdk-pixbuf.h>
++#include <gobject/gtype.h>
+ 
+ #include "utils/filepath.h"
+ #include "utils/messages.h"
+@@ -72,6 +73,11 @@
+ #include "gtk/schedule.h"
+ #include "gtk/viewdata.h"
+ 
++#ifndef __GTK_IMAGE_MENU_ITEM_H__
++#define GTK_TYPE_IMAGE_MENU_ITEM            (gtk_image_menu_item_get_type ())
++#define GTK_IMAGE_MENU_ITEM(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GTK_TYPE_IMAGE_MENU_ITEM, GtkWidget))
++#endif
++
+ /** Macro to define a handler for menu, button and activate events. */
+ #define MULTIHANDLER(q)\
+ static gboolean nsgtk_on_##q##_activate(struct nsgtk_scaffolding *g);\
+@@ -590,7 +596,7 @@ MULTIHANDLER(openfile)
+ 	scaf_current = g;
+ 	GtkWidget *dlgOpen = gtk_file_chooser_dialog_new("Open File",
+ 			scaf_current->window, GTK_FILE_CHOOSER_ACTION_OPEN,
+-			GTK_STOCK_CANCEL, -6, GTK_STOCK_OPEN, -5, NULL);
++			"Cancel", -6, "Open", -5, NULL);
+ 
+ 	gint response = gtk_dialog_run(GTK_DIALOG(dlgOpen));
+ 	if (response == GTK_RESPONSE_OK) {
+@@ -624,8 +630,8 @@ MULTIHANDLER(savepage)
+ 	GtkWidget *fc = gtk_file_chooser_dialog_new(
+ 			messages_get("gtkcompleteSave"), g->window,
+ 			GTK_FILE_CHOOSER_ACTION_CREATE_FOLDER,
+-			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+-			GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
++			"Cancel", GTK_RESPONSE_CANCEL,
++			"Save", GTK_RESPONSE_ACCEPT,
+ 			NULL);
+ 	DIR *d;
+ 	char *path;
+@@ -720,8 +726,8 @@ MULTIHANDLER(pdf)
+ 
+ 	save_dialog = gtk_file_chooser_dialog_new("Export to PDF", g->window,
+ 		GTK_FILE_CHOOSER_ACTION_SAVE,
+-		GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+-		GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
++		"Cancel", GTK_RESPONSE_CANCEL,
++		"Save", GTK_RESPONSE_ACCEPT,
+ 		NULL);
+ 
+ 	gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(save_dialog),
+@@ -764,8 +770,8 @@ MULTIHANDLER(plaintext)
+ 	GtkWidget *fc = gtk_file_chooser_dialog_new(
+ 			messages_get("gtkplainSave"), g->window,
+ 			GTK_FILE_CHOOSER_ACTION_SAVE,
+-			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+-			GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
++			"Cancel", GTK_RESPONSE_CANCEL,
++			"Save", GTK_RESPONSE_ACCEPT,
+ 			NULL);
+ 	char *filename;
+ 	nserror res;
+@@ -2160,7 +2166,7 @@ struct nsgtk_scaffolding *nsgtk_new_scaf
+ 	nsgtk_widget_override_background_color(GTK_WIDGET(g->history_window->drawing_area),
+ 			GTK_STATE_NORMAL,
+ 			0, 0xffff, 0xffff, 0xffff);
+-	gtk_scrolled_window_add_with_viewport(g->history_window->scrolled,
++	gtk_container_add(GTK_CONTAINER(g->history_window->scrolled),
+ 			GTK_WIDGET(g->history_window->drawing_area));
+ 	gtk_widget_show(GTK_WIDGET(g->history_window->drawing_area));
+ 
+Index: netsurf-all-3.3/netsurf/gtk/theme.c
+===================================================================
+--- netsurf-all-3.3.orig/netsurf/gtk/theme.c
++++ netsurf-all-3.3/netsurf/gtk/theme.c
+@@ -260,7 +260,7 @@ void nsgtk_theme_add(const char *themena
+ 
+ 	/* notification that theme was added successfully */
+ 	notification = gtk_dialog_new_with_buttons(messages_get("gtkThemeAdd"),
+-			NULL, GTK_DIALOG_DESTROY_WITH_PARENT, GTK_STOCK_OK,
++			NULL, GTK_DIALOG_DESTROY_WITH_PARENT, "Ok",
+ 			GTK_RESPONSE_NONE, NULL);
+ 	if (notification == NULL) {
+ 		warn_user(messages_get("NoMemory"), 0);
+Index: netsurf-all-3.3/netsurf/gtk/viewdata.c
+===================================================================
+--- netsurf-all-3.3.orig/netsurf/gtk/viewdata.c
++++ netsurf-all-3.3/netsurf/gtk/viewdata.c
+@@ -164,7 +164,7 @@ static void nsgtk_viewdata_file_save(Gtk
+ 	/* inform user of faliure */
+ 	notif = gtk_dialog_new_with_buttons(messages_get("gtkSaveFailedTitle"),
+ 					    parent,
+-					    GTK_DIALOG_MODAL, GTK_STOCK_OK,
++					    GTK_DIALOG_MODAL, "Ok",
+ 					    GTK_RESPONSE_NONE, NULL);
+ 
+ 	g_signal_connect_swapped(notif, "response",
+@@ -185,9 +185,9 @@ gboolean nsgtk_on_viewdata_save_as_activ
+ 	fc = gtk_file_chooser_dialog_new(messages_get("gtkSaveFile"),
+ 					 nsg->window,
+ 					 GTK_FILE_CHOOSER_ACTION_SAVE,
+-					 GTK_STOCK_CANCEL,
++					 "Cancel",
+ 					 GTK_RESPONSE_CANCEL,
+-					 GTK_STOCK_SAVE,
++					 "Save",
+ 					 GTK_RESPONSE_ACCEPT,
+ 					 NULL);
+ 
+Index: netsurf-all-3.3/netsurf/gtk/window.c
+===================================================================
+--- netsurf-all-3.3.orig/netsurf/gtk/window.c
++++ netsurf-all-3.3/netsurf/gtk/window.c
+@@ -1269,8 +1269,8 @@ gui_window_file_gadget_open(struct gui_w
+ 	dialog = gtk_file_chooser_dialog_new("Select File",
+ 			nsgtk_scaffolding_window(g->scaffold),
+ 			GTK_FILE_CHOOSER_ACTION_OPEN,
+-			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+-			GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
++			"Cancel", GTK_RESPONSE_CANCEL,
++			"Open", GTK_RESPONSE_ACCEPT,
+ 			NULL);
+ 
+ 	LOG(("*** open dialog: %p", dialog));
+Index: netsurf-all-3.3/netsurf/gtk/Makefile.target
+===================================================================
+--- netsurf-all-3.3.orig/netsurf/gtk/Makefile.target
++++ netsurf-all-3.3/netsurf/gtk/Makefile.target
+@@ -30,7 +30,7 @@ $(eval $(call pkg_config_find_and_add_en
+ $(eval $(call feature_enabled,WEBP,-DWITH_WEBP,-lwebp,WebP (libwebp)))
+ $(eval $(call pkg_config_find_and_add_enabled,MOZJS,mozjs185,JavaScript))
+ $(eval $(call pkg_config_find_and_add_enabled,JS,mozilla-js,JavaScript))
+-$(eval $(call pkg_config_find_and_add_enabled,VIDEO,gstreamer-0.10,Video))
++$(eval $(call pkg_config_find_and_add_enabled,VIDEO,gstreamer-1.0,Video))
+ 
+ # GTK and GLIB flags to disable depricated usage
+ GTKDEPFLAGS := -DG_DISABLE_SINGLE_INCLUDES \
+Index: netsurf-all-3.3/netsurf/image/video.c
+===================================================================
+--- netsurf-all-3.3.orig/netsurf/image/video.c
++++ netsurf-all-3.3/netsurf/image/video.c
+@@ -17,6 +17,7 @@
+  */
+ 
+ #include <gst/gst.h>
++#include <string.h>
+ 
+ #include "content/content_factory.h"
+ #include "content/content_protected.h"
+@@ -122,9 +123,10 @@ static bool nsvideo_process_data(struct
+ 	GstBuffer *buffer;
+ 	GstFlowReturn ret;
+ 
+-	buffer = gst_buffer_new();
+-	GST_BUFFER_DATA(buffer) = (guint8 *) data;
+-	GST_BUFFER_SIZE(buffer) = (gsize) size;
++	buffer = gst_buffer_new_and_alloc(size);
++//	memcpy(GST_BUFFER_DATA(buffer), GST_BUFFER_DATA(data), size);
++	buffer = gst_buffer_copy(data);
++//	GST_BUFFER_SIZE(buffer) = size;
+ 
+ 	/* Send data to appsrc */
+ 	g_signal_emit_by_name(video->appsrc, "push-buffer", buffer, &ret);

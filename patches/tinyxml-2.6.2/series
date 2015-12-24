@@ -1,0 +1,7 @@
+disable_xmltest.patch
+enforce-use-stl.patch
+entity.patch
+makefix.patch 
+cross-compile.patch
+# fix_for_arm_library.patch
+add_tinyxml_pc.patch

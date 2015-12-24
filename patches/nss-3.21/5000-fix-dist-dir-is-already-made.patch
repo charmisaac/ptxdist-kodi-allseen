@@ -1,0 +1,41 @@
+Index: nss-3.21/nss/Makefile
+===================================================================
+--- a/nss/Makefile
++++ b/nss/Makefile
+@@ -108,7 +108,7 @@ NSPR_PREFIX = $$(topsrcdir)/../dist/$(OB
+ endif
+ 
+ $(NSPR_CONFIG_STATUS): $(NSPR_CONFIGURE)
+-	mkdir -p $(CORE_DEPTH)/../nspr/$(OBJDIR_NAME)
++	[ -d $(CORE_DEPTH)/../nspr/$(OBJDIR_NAME) ] || mkdir -p $(CORE_DEPTH)/../nspr/$(OBJDIR_NAME)
+ 	cd $(CORE_DEPTH)/../nspr/$(OBJDIR_NAME) ; \
+ 	$(NSPR_COMPILERS) sh ../configure \
+ 	$(NSPR_CONFIGURE_OPTS) \
+Index: nss-3.21/nss/lib/freebl/des.c
+===================================================================
+--- a/nss/lib/freebl/des.c
++++ b/nss/lib/freebl/des.c
+@@ -393,7 +393,8 @@ static const HALF PC2[8][64] = {
+        defined(__ARM_ARCH_6T2__) || \
+        defined(__ARM_ARCH_7__) || \
+        defined(__ARM_ARCH_7A__) || \
+-       defined(__ARM_ARCH_7R__))))
++       defined(__ARM_ARCH_7R__) || \
++       defined(__ARM_ARCH_8A__))))
+ #define BYTESWAP(word, temp) \
+     __asm("rev %0, %0" : "+r" (word));
+ #else
+Index: nss-3.21/nss/lib/freebl/sha512.c
+===================================================================
+--- a/nss/lib/freebl/sha512.c
++++ b/nss/lib/freebl/sha512.c
+@@ -111,7 +111,8 @@ static __inline__ PRUint32 swap4b(PRUint
+        defined(__ARM_ARCH_6T2__) || \
+        defined(__ARM_ARCH_7__) || \
+        defined(__ARM_ARCH_7A__) || \
+-       defined(__ARM_ARCH_7R__))))
++       defined(__ARM_ARCH_7R__) || \
++       defined(__ARM_ARCH_8A__))))
+ static __inline__ PRUint32 swap4b(PRUint32 value)
+ {
+     PRUint32 ret;

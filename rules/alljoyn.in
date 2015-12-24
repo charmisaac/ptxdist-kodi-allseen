@@ -1,0 +1,47 @@
+## SECTION=networking
+
+menuconfig ALLJOYN
+	tristate
+	select OPENSSL
+	select LIBCAP
+	select HOST_SCONS
+	prompt "AllJoyn                       "
+	help
+	  The AllSeen Alliance is a nonprofit consortium dedicated to enabling and driving the widespread adoption of products, systems and services that support the Internet of Everything with an open, universal development framework supported by a vibrant ecosystem and thriving technical community. It is the broadest cross-industry consortium to date to advance adoption and innovation in the “Internet of Everything” in homes and industry.
+		http://allseenalliance.org/
+
+if ALLJOYN
+
+config ALLJOYN_ABOUT
+	bool
+	prompt "AllJoyn about"
+
+config ALLJOYN_C
+	bool
+	prompt "AllJoyn C"
+
+config ALLJOYN_CONFIG
+	bool
+	prompt "AllJoyn Config"
+
+config ALLJOYN_CONTROLPANEL
+	bool
+	prompt "AllJoyn Control Panel"
+
+config ALLJOYN_NOTIFICATION
+	bool
+	prompt "AllJoyn Notification"
+
+config ALLJOYN_SAMPLE_APPS
+	bool
+	prompt "AllJoyn Sample apps"
+
+config ALLJOYN_SERVICE_COMMON
+	bool
+	prompt "AllJoyn Service Common"
+
+config ALLJOYN_ONBORDING
+	bool
+	prompt "AllJoyn Onbording"
+
+endif

@@ -1,0 +1,56 @@
+Index: KODI-pine64-2015.12.25/platform-Pine64/build-target/chromium-49.0.2588.7/src/build/install-build-deps.sh
+===================================================================
+--- KODI-pine64-2015.12.25.orig/platform-Pine64/build-target/chromium-49.0.2588.7/src/build/install-build-deps.sh
++++ KODI-pine64-2015.12.25/platform-Pine64/build-target/chromium-49.0.2588.7/src/build/install-build-deps.sh
+@@ -73,10 +73,10 @@ if ! which lsb_release > /dev/null; then
+ fi
+ 
+ lsb_release=$(lsb_release --codename --short)
+-ubuntu_codenames="(precise|trusty|utopic|vivid)"
++ubuntu_codenames="(precise|trusty|utopic|vivid|wily)"
+ if [ 0 -eq "${do_unsupported-0}" ] && [ 0 -eq "${do_quick_check-0}" ] ; then
+   if [[ ! $lsb_release =~ $ubuntu_codenames ]]; then
+-    echo "ERROR: Only Ubuntu 12.04 (precise), 14.04 (trusty), " \
++    echo "ERROR: Only Ubuntu 12.04 (precise), 14.04 (trusty), 15.10(wily)" \
+       "14.10 (utopic) and 15.04 (vivid) are currently supported" >&2
+     exit 1
+   fi
+@@ -97,7 +97,7 @@ fi
+ chromeos_dev_list="libbluetooth-dev libxkbcommon-dev realpath"
+ 
+ # Packages needed for development
+-dev_list="apache2.2-bin bison cdbs curl dpkg-dev elfutils devscripts fakeroot
++dev_list="apache2-bin bison cdbs curl dpkg-dev elfutils devscripts fakeroot
+           flex fonts-thai-tlwg g++ git-core git-svn gperf language-pack-da
+           language-pack-fr language-pack-he language-pack-zh-hant
+           libapache2-mod-php5 libasound2-dev libbrlapi-dev libav-tools
+@@ -110,7 +110,7 @@ dev_list="apache2.2-bin bison cdbs curl
+           openbox patch perl php5-cgi pkg-config python python-cherrypy3
+           python-crypto python-dev python-numpy python-opencv python-openssl
+           python-psutil python-yaml rpm ruby subversion ttf-dejavu-core
+-          ttf-indic-fonts ttf-kochi-gothic ttf-kochi-mincho wdiff xfonts-mathml
++          ttf-punjabi-fonts ttf-indic-fonts ttf-kochi-gothic ttf-kochi-mincho wdiff
+           zip $chromeos_dev_list"
+ 
+ # 64-bit systems need a minimum set of 32-bit compat packages for the pre-built
+@@ -144,8 +144,10 @@ if [ "x$lsb_release" = "xprecise" ]; the
+   dbg_list="${dbg_list} libstdc++6-4.6-dbg"
+ elif [ "x$lsb_release" = "xtrusty" ]; then
+   dbg_list="${dbg_list} libstdc++6-4.8-dbg"
+-else
++elif [ "x$lsb_release" = "xvivid" ]; then
+   dbg_list="${dbg_list} libstdc++6-4.9-dbg"
++else
++  dbg_list="${dbg_list} libstdc++6-5-dbg"
+ fi
+ 
+ # 32-bit libraries needed e.g. to compile V8 snapshot for Android or armhf
+@@ -182,7 +184,7 @@ nacl_list="g++-mingw-w64-i686 lib32z1-de
+ # be more than one with the same name in the case of multiarch). Expand into an
+ # array.
+ mesa_packages=($(dpkg-query -Wf'${package} ${status}\n' \
+-                            libgl1-mesa-glx-lts-\* | \
++                            libgl1-mesa-glx\* | \
+                  grep " ok installed" | cut -d " " -f 1 | sort -u))
+ if [ "${#mesa_packages[@]}" -eq 0 ]; then
+   mesa_variant=""

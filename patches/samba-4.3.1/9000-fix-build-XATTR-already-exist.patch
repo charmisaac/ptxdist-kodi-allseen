@@ -1,0 +1,19 @@
+Index: samba-4.3.1/arm-cache.txt
+===================================================================
+--- a/lib/replace/system/filesys.h	2015-10-06 16:24:22.266696231 +0800
++++ b/lib/replace/system/filesys.h	2015-10-06 16:17:05.121407544 +0800
+@@ -121,12 +121,14 @@
+ #include <attr/attributes.h>
+ #endif
+ 
++#if 0
+ /* mutually exclusive (SuSE 8.2) */
+ #if HAVE_ATTR_XATTR_H
+ #include <attr/xattr.h>
+ #elif HAVE_SYS_XATTR_H
+ #include <sys/xattr.h>
+ #endif
++#endif
+ 
+ #ifdef HAVE_SYS_EA_H
+ #include <sys/ea.h>

@@ -1,0 +1,6 @@
+## SECTION=hosttools_noprompt
+
+config HOST_LIBIDL
+	tristate
+	select HOST_GLIB
+	default ALLYES

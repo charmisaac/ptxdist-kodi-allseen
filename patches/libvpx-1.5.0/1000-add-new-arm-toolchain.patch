@@ -1,0 +1,13 @@
+Index: libvpx-1.5.0/configure
+===================================================================
+--- a/configure
++++ b/configure
+@@ -105,6 +105,8 @@ all_platforms="${all_platforms} armv7-da
+ all_platforms="${all_platforms} armv7-linux-rvct"    #neon Cortex-A8
+ all_platforms="${all_platforms} armv7-linux-gcc"     #neon Cortex-A8
+ all_platforms="${all_platforms} armv7-none-rvct"     #neon Cortex-A8
++all_platforms="${all_platforms} aarch64-linux-gnueabihf-gcc"
++all_platforms="${all_platforms} arm-linux-gnueabihf-gcc"
+ all_platforms="${all_platforms} armv7-win32-vs11"
+ all_platforms="${all_platforms} armv7-win32-vs12"
+ all_platforms="${all_platforms} armv7-win32-vs14"

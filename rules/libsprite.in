@@ -1,0 +1,8 @@
+## SECTION=system_libraries
+
+config LIBSPRITE
+	bool
+	prompt "libSPRITE "
+	select LUA
+	help
+

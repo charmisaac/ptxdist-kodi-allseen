@@ -1,0 +1,8 @@
+000-add-OPTCFLAGS.patch
+1000-netsurf-buildsystem.patch
+#2000-conditionally-include-image-headers.patch
+#3000-nsbf-F4-exit.patch
+4000-fix-font-haru-path.patch
+netsurf-3.3-pdf-writer.patch
+5000-fix-GTK-3-function.patch
+6000-new-temp.patch

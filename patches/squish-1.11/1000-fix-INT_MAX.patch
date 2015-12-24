@@ -1,0 +1,24 @@
+Index: squish-1.11/alpha.cpp
+===================================================================
+--- a/alpha.cpp
++++ b/alpha.cpp
+@@ -25,6 +25,7 @@
+    
+ #include "alpha.h"
+ #include <algorithm>
++#include <climits>
+ 
+ namespace squish {
+ 
+Index: squish-1.11/singlecolourfit.cpp
+===================================================================
+--- a/singlecolourfit.cpp
++++ b/singlecolourfit.cpp
+@@ -26,6 +26,7 @@
+ #include "singlecolourfit.h"
+ #include "colourset.h"
+ #include "colourblock.h"
++#include <climits>
+ 
+ namespace squish {
+ 

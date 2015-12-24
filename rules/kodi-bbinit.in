@@ -1,0 +1,14 @@
+## SECTION=initmethod_bbinit
+
+config KODI_BBINIT_STARTLINK
+	string
+	depends on KODI_STARTSCRIPT
+	prompt "Kodi start"
+	default "S99kodi"
+
+config KODI_BBINIT_STOPLINK
+	string
+	depends on KODI_STARTSCRIPT
+	prompt "Kodi stop"
+	default "K01kodi"
+

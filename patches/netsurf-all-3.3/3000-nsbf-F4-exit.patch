@@ -1,0 +1,18 @@
+Index: netsurf-all-3.3/netsurf/framebuffer/fbtk/event.c
+===================================================================
+--- netsurf-all-3.3.orig/netsurf/framebuffer/fbtk/event.c
++++ netsurf-all-3.3/netsurf/framebuffer/fbtk/event.c
+@@ -217,6 +217,13 @@ fbtk_event(fbtk_widget_t *root, nsfb_eve
+ 		switch (event->type) {
+ 		case NSFB_EVENT_KEY_DOWN:
+ 		case NSFB_EVENT_KEY_UP:
++			if (event->value.keycode == NSFB_KEY_F4) {
++				event->type = NSFB_EVENT_CONTROL;
++				event->value.controlcode = NSFB_CONTROL_QUIT;
++				unused = true;
++				break;
++			}
++
+ 			if ((event->value.keycode >= NSFB_KEY_MOUSE_1) &&
+ 			    (event->value.keycode <= NSFB_KEY_MOUSE_5)) {
+ 				fbtk_click(root, event);

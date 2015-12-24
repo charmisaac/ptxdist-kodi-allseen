@@ -1,0 +1,15 @@
+Index: netsurf-all-3.3/netsurf/framebuffer/Makefile.target
+===================================================================
+--- a/netsurf/framebuffer/Makefile.target
++++ b/netsurf/framebuffer/Makefile.target
+@@ -41,6 +41,10 @@ $(eval $(call pkg_config_find_and_add_en
+ $(eval $(call pkg_config_find_and_add_enabled,GIF,libnsgif,GIF))
+ $(eval $(call pkg_config_find_and_add_enabled,MOZJS,mozjs185,JavaScript))
+ $(eval $(call pkg_config_find_and_add_enabled,JS,mozilla-js,JavaScript))
++$(eval $(call pkg_config_find_and_add_enabled,NSSVG,libsvgtiny,NSSVG))
++$(eval $(call pkg_config_find_and_add_enabled,RSVG,librsvg-2.0,RSVG))
++$(eval $(call pkg_config_find_and_add_enabled,WEBP,libwebp,WEBP))
++$(eval $(call pkg_config_find_and_add_enabled,VIDEO,gstreamer-1.0,VIDEO))
+
+ CFLAGS += -std=c99 -g -Dsmall \
+          -D_BSD_SOURCE \

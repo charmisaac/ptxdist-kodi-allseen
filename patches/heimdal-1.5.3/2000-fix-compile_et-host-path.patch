@@ -1,0 +1,26 @@
+Index: heimdal-1.5.3/configure
+===================================================================
+--- a/configure
++++ b/configure
+@@ -28361,7 +28361,7 @@ if test "${krb_cv_com_err}" = "yes"; the
+     LIB_com_err_so=""
+     { $as_echo "$as_me:${as_lineno-$LINENO}: Using the already-installed com_err" >&5
+ $as_echo "$as_me: Using the already-installed com_err" >&6;}
+-    COMPILE_ET="${ac_cv_prog_COMPILE_ET}"
++#    COMPILE_ET="${ac_cv_prog_COMPILE_ET}"
+     localcomerr=no
+ elif test "${krb_cv_com_err}" = "cross"; then
+     DIR_com_err="com_err"
+@@ -28370,10 +28370,10 @@ elif test "${krb_cv_com_err}" = "cross";
+     LIB_com_err_so="\$(top_builddir)/lib/com_err/.libs/libcom_err.so"
+     { $as_echo "$as_me:${as_lineno-$LINENO}: Using our own com_err with toolchain compile_et" >&5
+ $as_echo "$as_me: Using our own com_err with toolchain compile_et" >&6;}
+-    COMPILE_ET="${ac_cv_prog_COMPILE_ET}"
++#    COMPILE_ET="${ac_cv_prog_COMPILE_ET}"
+     localcomerr=yes
+ else
+-    COMPILE_ET="\$(top_builddir)/lib/com_err/compile_et"
++#    COMPILE_ET="\$(top_builddir)/lib/com_err/compile_et"
+     DIR_com_err="com_err"
+     LIB_com_err="\$(top_builddir)/lib/com_err/libcom_err.la"
+     LIB_com_err_a="\$(top_builddir)/lib/com_err/.libs/libcom_err.a"

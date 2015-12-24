@@ -1,0 +1,13 @@
+## SECTION=system_libraries
+
+config ORBIT2
+        tristate
+	select LIBIDL
+	select HOST_ORBIT2
+        prompt "ORBit2"
+        help
+	  An MVC web framework for Lua. The design is inspired by lightweight
+	  Ruby frameworks such as Camping
+
+	  http://keplerproject.github.com/orbit
+~             

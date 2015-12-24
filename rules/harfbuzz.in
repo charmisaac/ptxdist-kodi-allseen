@@ -1,0 +1,11 @@
+## SECTION=multimedia_gtk
+
+config HARFBUZZ
+	tristate
+	select CAIRO
+	select FREETYPE
+	select GLIB
+	select ICU
+	prompt "Harfbuzz	"
+	help
+	  HarfBuzz is an OpenType text shaping engine.

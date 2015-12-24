@@ -1,0 +1,60 @@
+#!/bin/bash
+
+[ -e /sbin/preinit ] || ln -s /sbin/rc /sbin/preinit
+
+[ -e /sbin/utelnetd ] && /sbin/utelnetd
+
+# /sbin/preinit start		### this command startup wireless AP user app and web server
+
+ifdown wln0
+/usr/local/bin/wl -i wln0 bss down
+/usr/local/bin/wl -i wln0 down
+sleep 1
+/usr/local/bin/wl -i wln0 ap 1
+/usr/local/bin/wl -i wln0 ssid HCC2-5G ### setup SSID
+/usr/local/bin/wl -i wln0 band a
+/usr/local/bin/wl -i wln0 chanspec 161/20
+sleep 1
+/usr/local/bin/wl -i wln0 up
+/usr/local/bin/wl -i wln0 bss up
+sleep 1
+/usr/local/bin/wl -i wln0 status
+sleep 1
+ifdown wln1
+/usr/local/bin/wl -i wln1 bss down
+/usr/local/bin/wl -i wln1 down
+sleep 1
+/usr/local/bin/wl -i wln1 ap 1
+/usr/local/bin/wl -i wln1 ssid HCC2-2.4G
+/usr/local/bin/wl -i wln1 band b
+/usr/local/bin/wl -i wln1 chanspec 6/20
+sleep 1
+/usr/local/bin/wl -i wln1 up
+/usr/local/bin/wl -i wln1 bss up
+sleep 1
+/usr/local/bin/wl -i wln1 status
+
+
+# brctl addbr br0			### add br0 bridge interface
+# brctl stp br0 on
+# brctl addif br0 wln0		### wln0 (wireless interface) to bridge
+# brctl addif br0 wln1		### wln1 (wireless interface) to bridge
+# brctl addif br0 gphy		### add eth0/rgmii_1 (Ethernet interface)
+
+ifconfig wln0 0.0.0.0 up
+ifconfig wln1 0.0.0.0 up
+ifconfig gphy 0.0.0.0 up
+
+# ifconfig br0 192.168.1.1 broadcast 192.168.1.255 netmask 255.255.255.0 up 
+
+touch /tmp/dhcpd.leases
+[ -e /usr/local/sbin/dhcpd ] && /usr/local/sbin/dhcpd -4 -cf /etc/dhcpd.conf -lf /tmp/dhcpd.leases wln0
+[ -e /usr/local/sbin/dhcpd ] && /usr/local/sbin/dhcpd -4 -cf /etc/dhcpd.conf -lf /tmp/dhcpd.leases wln1
+
+[ -e /sbin/utelnetd ] && utelnetd 
+[ -e /sbin/httpd ] && httpd /etc/httpd.conf
+
+
+## cd /usr/local/bin/trellis && trellis
+cd /usr/local/bin/upnp_cp && ./start upnp_cp
+

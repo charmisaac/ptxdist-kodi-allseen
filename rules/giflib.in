@@ -1,0 +1,6 @@
+## SECTION=system_libraries
+
+config GIFLIB
+	tristate
+	prompt "giflib"
+	help

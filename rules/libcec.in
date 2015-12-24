@@ -1,0 +1,8 @@
+## SECTION=system_libraries
+
+config LIBCEC
+	bool
+	prompt "libCEC "
+	help
+	  libCEC allows you in combination with the right hardware to control your device with your TV remote control. Utilising your existing HDMI cabling
+

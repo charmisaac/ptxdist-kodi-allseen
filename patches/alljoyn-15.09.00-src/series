@@ -1,0 +1,3 @@
+5000-fix-build-for-arm-linux.patch
+5010-fix-build-GCC_5-DEFAULT_SOURCE.patch
+5020-add-attr-for-libcap.patch

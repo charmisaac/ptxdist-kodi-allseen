@@ -1,0 +1,12 @@
+Index: chrome-39.0.2132.2/src/third_party/webrtc/base/fileutils.h
+===================================================================
+--- a/src/third_party/webrtc/base/fileutils.h	2015-12-09 15:09:34.293499407 +0800
++++ b/src/third_party/webrtc/base/fileutils.h	2015-12-09 14:34:33.432525410 +0800
+@@ -16,6 +16,7 @@
+ #if defined(WEBRTC_WIN)
+ #include "webrtc/base/win32.h"
+ #else
++#include <features.h>
+ #include <dirent.h>
+ #include <stdio.h>
+ #include <sys/stat.h>

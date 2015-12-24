@@ -1,0 +1,24 @@
+Index: libnsgif-0.1.2/Makefile
+===================================================================
+--- libnsgif-0.1.2.orig/Makefile
++++ libnsgif-0.1.2/Makefile
+@@ -5,8 +5,8 @@ COMPONENT_VERSION := 0.1.2
+ COMPONENT_TYPE ?= lib-static
+ 
+ # Setup the tooling
+-PREFIX ?= /opt/netsurf
+-NSSHARED ?= $(PREFIX)/share/netsurf-buildsystem
++# PREFIX ?= /opt/netsurf
++NSSHARED ?= ../netsurf-all-3.3/buildsystem
+ include $(NSSHARED)/makefiles/Makefile.tools
+ 
+ # Toolchain flags
+@@ -17,7 +17,7 @@ WARNFLAGS := -Wall -W -Wundef -Wpointer-
+ ifneq ($(BUILD),i586-pc-haiku)
+   WARNFLAGS := $(WARNFLAGS) -Werror
+ endif
+-CFLAGS := -D_BSD_SOURCE -I$(CURDIR)/include/ \
++CFLAGS := -D_DEFAULT_SOURCE -I$(CURDIR)/include/ \
+ 	-I$(CURDIR)/src $(WARNFLAGS) $(CFLAGS)
+ ifneq ($(GCCVER),2)
+   CFLAGS := $(CFLAGS) -std=c99

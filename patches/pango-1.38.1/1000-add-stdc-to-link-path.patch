@@ -1,0 +1,23 @@
+Index: pango-1.38.1/pango.pc.in
+===================================================================
+--- a/pango.pc.in	2015-12-14 16:56:42.639984202 +0800
++++ b/pango.pc.in	2015-12-14 16:57:06.580145141 +0800
+@@ -7,6 +7,6 @@
+ Description: Internationalized text handling
+ Version: @VERSION@
+ Requires: glib-2.0 gobject-2.0
+-Libs: -L${libdir} -lpango-@PANGO_API_VERSION@
++Libs: -L${libdir} -lpango-@PANGO_API_VERSION@ -lstdc++
+ Libs.private: -lm
+ Cflags: -I${includedir}/pango-1.0
+Index: pango-1.38.1/pangocairo.pc.in
+===================================================================
+--- a/pangocairo.pc.in	2015-12-14 16:56:50.788038978 +0800
++++ b/pangocairo.pc.in	2015-12-14 16:57:26.664280159 +0800
+@@ -8,5 +8,5 @@
+ Version: @VERSION@
+ Requires: pango cairo
+ Requires.private: @PKGCONFIG_CAIRO_REQUIRES@
+-Libs: -L${libdir} -lpangocairo-@PANGO_API_VERSION@
++Libs: -L${libdir} -lpangocairo-@PANGO_API_VERSION@ -lstdc++
+ Cflags: -I${includedir}/pango-1.0

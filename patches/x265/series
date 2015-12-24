@@ -1,0 +1,2 @@
+0001-arm-do-not-append-CFLAGS-to-ASFLAGS.patch
+1000-fix-cross-compile-for-armv7-a.patch

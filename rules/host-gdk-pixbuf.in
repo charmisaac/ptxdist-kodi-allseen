@@ -1,0 +1,6 @@
+## SECTION=hosttools_noprompt
+
+config HOST_GDK_PIXBUF
+	tristate
+	select HOST_GLIB
+	select HOST_XORG_LIB_X11

@@ -1,0 +1,38 @@
+Index: 15.2-Isengard/configure.ac
+===================================================================
+--- 15.2-Isengard.orig/configure.ac
++++ 15.2-Isengard/configure.ac
+@@ -691,6 +691,11 @@ case $host in
+      use_wayland=no
+      USE_STATIC_FFMPEG=1
+      ;;
++  aarch*-*-linux-gnu*|aarch*-*-linux-uclibc*)
++     ARCH="aarch64"
++     use_arch="arm64"
++     use_cpu=cortex-a53
++     ;;
+   arm*-*linux-android*)
+      target_platform=target_android
+      use_arch="arm"
+Index: 15.2-Isengard/m4/xbmc_arch.m4
+===================================================================
+--- 15.2-Isengard.orig/m4/xbmc_arch.m4
++++ 15.2-Isengard/m4/xbmc_arch.m4
+@@ -23,7 +23,7 @@ case $build in
+   powerpc64-*-linux-gnu*|powerpc64-*-linux-uclibc*)
+      AC_SUBST(NATIVE_ARCH_DEFINES, "-DTARGET_POSIX -DTARGET_LINUX -D_LINUX -D_POWERPC64")
+      ;;
+-  arm*-*-linux-gnu*|arm*-*-linux-uclibc*)
++  arm*-*-linux-gnu*|arm*-*-linux-uclibc*|aarch*-*-linux-gnu*)
+      AC_SUBST(NATIVE_ARCH_DEFINES, "-DTARGET_POSIX -DTARGET_LINUX -D_LINUX")
+      ;;
+   *)
+@@ -60,7 +60,7 @@ case $host in
+   powerpc64-*-linux-gnu*|powerpc64-*-linux-uclibc*)
+      AC_SUBST(ARCH_DEFINES, "-DTARGET_POSIX -DTARGET_LINUX -D_LINUX -D_POWERPC64")
+      ;;
+-  arm*-*-linux-gnu*|arm*-*-linux-uclibc*)
++  arm*-*-linux-gnu*|arm*-*-linux-uclibc*|aarch*-*-linux-gnu*)
+      AC_SUBST(ARCH_DEFINES, "-DTARGET_POSIX -DTARGET_LINUX -D_LINUX")
+      ;;
+   mips*-*-linux-gnu*|mips*-*-linux-uclibc*)

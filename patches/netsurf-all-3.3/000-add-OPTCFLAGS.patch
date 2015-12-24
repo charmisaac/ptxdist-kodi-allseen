@@ -1,0 +1,13 @@
+Index: netsurf-all-3.3/netsurf/Makefile.defaults
+===================================================================
+--- netsurf-all-3.3.orig/netsurf/Makefile.defaults
++++ netsurf-all-3.3/netsurf/Makefile.defaults
+@@ -92,7 +92,7 @@ NETSURF_USE_LIBICONV_PLUG := YES
+ NETSURF_FS_BACKING_STORE := NO
+ 
+ # Initial CFLAGS. Optimisation level etc. tend to be target specific.
+-CFLAGS :=
++CFLAGS := $(OPTCFLAGS)
+ 
+ # Initial CXXFLAGS. Optimisation level etc. tend to be target specific.
+ CXXFLAGS :=

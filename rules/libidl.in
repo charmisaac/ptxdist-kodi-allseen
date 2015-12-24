@@ -1,0 +1,7 @@
+## SECTION=system_libraries
+
+config LIBIDL
+        tristate
+        prompt "libIDL"
+        help
+~             

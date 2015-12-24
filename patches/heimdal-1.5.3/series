@@ -1,0 +1,6 @@
+1000-add-missed-roken-h-process-pl.patch
+heimdal-0003-vendor.patch
+# 0004-fix-compile_et-host-not-found.patch
+3000-add-generic-krb5-types-header.patch
+2000-fix-compile_et-host-path.patch
+4000-rename-roken-base64.patch

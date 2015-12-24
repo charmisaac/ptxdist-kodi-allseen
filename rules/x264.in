@@ -1,0 +1,7 @@
+## SECTION=multimedia_libs
+
+config X264
+	tristate
+	prompt "x264"
+	help
+

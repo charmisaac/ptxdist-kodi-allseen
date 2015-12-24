@@ -1,0 +1,15 @@
+## SECTION=multimedia_gtk
+
+config AT_SPI2_CORE
+	tristate
+	prompt "at-spi2-core			"
+	select DBUS
+	select XORG_LIB_XTST
+	select HOST_INTLTOOL
+	help
+	  AT_SPI2_CORE is a toolkit providing accessibility interfaces
+	  for applications or other toolkits. By implementing
+	  these interfaces, those other toolkits or applications
+	  can be used with tools such as screen readers,
+	  magnifiers, and other alternative input devices.
+	  AT_SPI2_CORE is part of the GNOME project.

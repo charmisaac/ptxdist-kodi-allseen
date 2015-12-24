@@ -1,0 +1,7 @@
+1000-fix-common-for-cross-env.patch
+# 2000-fix-redeined-S_IFMT.patch
+3000-bignum.cc-disable-warning-from-gcc-5.patch
+4000-add_missing_stat_h_include.patch
+5000-fix-type-mismatch.patch
+6000-remove-redefine-UINT64-C.patch
+7000-fix-for-GTK3-functions.patch

@@ -1,0 +1,6 @@
+## SECTION=hosttools_noprompt
+
+config HOST_GNUTLS
+	tristate
+	select HOST_NETTLE
+	select HOST_LIBTASN1

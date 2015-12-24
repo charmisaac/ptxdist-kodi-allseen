@@ -1,0 +1,15 @@
+Index: mariadb-5.5.46/CMakeLists.txt
+===================================================================
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -351,8 +351,8 @@ MYSQL_CHECK_READLINE()
+ CHECK_JEMALLOC()
+ 
+ IF(CMAKE_CROSSCOMPILING)
+-  SET(IMPORT_EXECUTABLES "IMPORTFILE-NOTFOUND" CACHE FILEPATH "Path to import_executables.cmake from a native build")
+-  INCLUDE(${IMPORT_EXECUTABLES})
++#  SET(IMPORT_EXECUTABLES "IMPORTFILE-NOTFOUND" CACHE FILEPATH "Path to import_executables.cmake from a native build")
++#  INCLUDE(${IMPORT_EXECUTABLES})
+ ENDIF()
+ 
+ #

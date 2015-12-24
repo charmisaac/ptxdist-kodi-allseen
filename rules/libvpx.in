@@ -1,0 +1,7 @@
+## SECTION=system_libraries
+
+config LIBVPX
+	tristate
+	select HOST_YASM
+	prompt "libvpx"
+	help

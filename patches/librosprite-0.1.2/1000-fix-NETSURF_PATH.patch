@@ -1,0 +1,15 @@
+Index: librosprite-0.1.2/Makefile
+===================================================================
+--- librosprite-0.1.2.orig/Makefile
++++ librosprite-0.1.2/Makefile
+@@ -9,8 +9,8 @@ COMPONENT_TYPE ?= lib-static
+ # examples/example.c needs a build target
+ 
+ # Setup the tooling
+-PREFIX ?= /opt/netsurf
+-NSSHARED ?= $(PREFIX)/share/netsurf-buildsystem
++# PREFIX ?= /opt/netsurf
++NSSHARED ?= ../netsurf-all-3.3/buildsystem
+ include $(NSSHARED)/makefiles/Makefile.tools
+ 
+ # Toolchain flags

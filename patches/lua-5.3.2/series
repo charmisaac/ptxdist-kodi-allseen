@@ -1,0 +1,5 @@
+1000-fix-add-DESTDIR.patch
+0001-root-path.patch
+0002-shared-libs-for-lua.patch
+0004-lua-pc.patch
+# 0011-linenoise.patch  series

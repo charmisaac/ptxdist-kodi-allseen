@@ -1,0 +1,6 @@
+## SECTION=system_libraries
+
+config LIBBMP
+	tristate
+	prompt "libbmp"
+	help

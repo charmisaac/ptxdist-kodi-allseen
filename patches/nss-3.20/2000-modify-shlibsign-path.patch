@@ -1,0 +1,17 @@
+Index: nss-3.20/nss/tests/remote/Makefile
+===================================================================
+--- a/nss/tests/remote/Makefile
++++ b/nss/tests/remote/Makefile
+@@ -96,9 +96,9 @@ ifeq ($(CROSS_COMPILE),1)
+ # work around a bug in Android ash that has a corrupted work directory after login
+ 	echo 'cd $${HOME}/nsstest'                          >> $(RTSH)
+ 	echo 'cd nss/cmd/shlibsign'                         >> $(RTSH)
+-	echo '$(TEST_SHELL) ./sign.sh $${DIST}/$${OBJDIR}/ $${DIST}/$${OBJDIR}/bin $${OS_TARGET} $${NSPR_LIB_DIR} $${NSPR_LIB_DIR}$${DLL_PREFIX}freebl3.$${DLL_SUFFIX}'  >> $(RTSH)
+-	echo '$(TEST_SHELL) ./sign.sh $${DIST}/$${OBJDIR}/ $${DIST}/$${OBJDIR}/bin $${OS_TARGET} $${NSPR_LIB_DIR} $${NSPR_LIB_DIR}$${DLL_PREFIX}softokn3.$${DLL_SUFFIX}' >> $(RTSH)
+-	echo '$(TEST_SHELL) ./sign.sh $${DIST}/$${OBJDIR}/ $${DIST}/$${OBJDIR}/bin $${OS_TARGET} $${NSPR_LIB_DIR} $${NSPR_LIB_DIR}$${DLL_PREFIX}nssdbm3.$${DLL_SUFFIX}'  >> $(RTSH)
++	echo '$(TEST_SHELL) ./sign.sh $${DIST}/$${OBJDIR}/ $${DIST}/bin $${OS_TARGET} $${NSPR_LIB_DIR} $${NSPR_LIB_DIR}$${DLL_PREFIX}freebl3.$${DLL_SUFFIX}'  >> $(RTSH)
++	echo '$(TEST_SHELL) ./sign.sh $${DIST}/$${OBJDIR}/ $${DIST}/bin $${OS_TARGET} $${NSPR_LIB_DIR} $${NSPR_LIB_DIR}$${DLL_PREFIX}softokn3.$${DLL_SUFFIX}' >> $(RTSH)
++	echo '$(TEST_SHELL) ./sign.sh $${DIST}/$${OBJDIR}/ $${DIST}/bin $${OS_TARGET} $${NSPR_LIB_DIR} $${NSPR_LIB_DIR}$${DLL_PREFIX}nssdbm3.$${DLL_SUFFIX}'  >> $(RTSH)
+ ifneq ($(OS_TARGET),Android)
+ # Android's ash doesn't support "export -n" yet
+ 	echo 'export -n DIST'                          >> $(RTSH)

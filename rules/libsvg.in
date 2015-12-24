@@ -1,0 +1,6 @@
+## SECTION=system_libraries
+
+config LIBSVG
+	tristate
+	prompt "libsvg"
+	help

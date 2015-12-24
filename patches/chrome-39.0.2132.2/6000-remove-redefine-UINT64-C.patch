@@ -1,0 +1,18 @@
+Index: chrome-39.0.2132.2/src/third_party/WebKit/Source/wtf/MathExtras.h
+===================================================================
+--- chrome-39.0.2132.2.orig/src/third_party/WebKit/Source/wtf/MathExtras.h
++++ chrome-39.0.2132.2/src/third_party/WebKit/Source/wtf/MathExtras.h
+@@ -287,13 +287,6 @@ inline size_t lowestCommonMultiple(size_
+     return a && b ? a / greatestCommonDivisor(a, b) * b : 0;
+ }
+ 
+-#ifndef UINT64_C
+-#if COMPILER(MSVC)
+-#define UINT64_C(c) c ## ui64
+-#else
+-#define UINT64_C(c) c ## ull
+-#endif
+-#endif
+ 
+ // Calculate d % 2^{64}.
+ inline void doubleToInteger(double d, unsigned long long& value)

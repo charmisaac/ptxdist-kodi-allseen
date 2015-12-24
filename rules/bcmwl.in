@@ -1,0 +1,8 @@
+## SECTION=specific
+
+config BCMWL
+	tristate
+	prompt "ardvark01t_rel_6_37_14_88"
+	select KERNEL
+	help
+	  Broadcom WIFI module and tool

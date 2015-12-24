@@ -1,0 +1,13 @@
+Index: DirectFB-1.7.6/configure
+===================================================================
+--- a/configure	2014-08-14 15:22:05.000000000 +0800
++++ b/configure	2014-08-21 17:00:08.345976249 +0800
+@@ -20326,7 +20326,7 @@
+ *** libdrm gbm packages not found -- Building without DRM/KMS support." >&2;}
+ 
+ else
+-	DRMKMS_CFLAGS=$pkg_cv_DRMKMS_CFLAGS
++	DRMKMS_CFLAGS="$CFLAGS_STD $pkg_cv_DRMKMS_CFLAGS"
+ 	DRMKMS_LIBS=$pkg_cv_DRMKMS_LIBS
+         { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+ $as_echo "yes" >&6; }

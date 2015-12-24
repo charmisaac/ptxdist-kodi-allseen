@@ -1,0 +1,15 @@
+Index: heimdal-1.5.3/tools/krb5-config.in
+===================================================================
+--- a/tools/krb5-config.in
++++ b/tools/krb5-config.in
+@@ -50,6 +50,10 @@ for i in $*; do
+     do_usage=yes
+     usage_exit=0
+     ;;
++  --vendor)
++    echo "Heimdal";
++    exit 0
++    ;;
+   --version)
+     echo "@PACKAGE@ @VERSION@"
+     exit 0

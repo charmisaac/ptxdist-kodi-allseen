@@ -1,0 +1,8 @@
+## SECTION=system_libraries
+
+config HUNSPELL
+	tristate
+	prompt "hunspell                        "
+	help
+	  A library for getting and setting POSIX.1e spellabilities.
+

@@ -1,0 +1,16 @@
+Index: DirectFB-1.7.6/config.h.in
+===================================================================
+--- a/config.h.in	2014-08-14 15:22:06.000000000 +0800
++++ b/config.h.in	2014-08-21 16:58:16.421981235 +0800
+@@ -204,6 +204,11 @@
+ /* Define to 1 to build with zlib compression. */
+ #undef USE_ZLIB
+ 
++/* Enable GNU extensions on systems that have them.  */
++#ifndef _GNU_SOURCE
++# define _GNU_SOURCE 1
++#endif
++
+ /* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
+    significant byte first (like Motorola and SPARC, unlike Intel). */
+ #if defined AC_APPLE_UNIVERSAL_BUILD

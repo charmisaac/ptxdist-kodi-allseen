@@ -1,0 +1,13 @@
+Index: Python-2.7.10/Makefile.pre.in
+===================================================================
+--- a/Makefile.pre.in
++++ b/Makefile.pre.in
+@@ -611,7 +611,7 @@ Modules/pwdmodule.o: $(srcdir)/Modules/p
+ $(GRAMMAR_H): $(GRAMMAR_INPUT) $(PGENSRCS)
+ 		@$(MKDIR_P) Include
+ 		$(MAKE) $(PGEN)
+-		$(PGEN) $(GRAMMAR_INPUT) $(GRAMMAR_H) $(GRAMMAR_C)
++		$(PGEN_FOR_BUILD) $(GRAMMAR_INPUT) $(GRAMMAR_H) $(GRAMMAR_C)
+ $(GRAMMAR_C): $(GRAMMAR_H) $(GRAMMAR_INPUT) $(PGENSRCS)
+ 		$(MAKE) $(GRAMMAR_H)
+ 		touch $(GRAMMAR_C)

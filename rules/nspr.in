@@ -1,0 +1,6 @@
+## SECTION=networking
+
+config NSPR
+	tristate
+	prompt "nspr"
+	help

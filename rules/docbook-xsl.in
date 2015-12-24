@@ -1,0 +1,6 @@
+## SECTION=system_libraries
+
+config DOCBOOK_XSL
+	tristate
+	prompt "docbook xsl"
+	help

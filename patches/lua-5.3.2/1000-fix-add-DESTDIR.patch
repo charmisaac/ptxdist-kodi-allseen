@@ -1,0 +1,65 @@
+Index: lua-5.3.1/Makefile
+===================================================================
+--- lua-5.3.1.orig/Makefile
++++ lua-5.3.1/Makefile
+@@ -10,7 +10,7 @@ PLAT= none
+ # so take care if INSTALL_TOP is not an absolute path. See the local target.
+ # You may want to make INSTALL_LMOD and INSTALL_CMOD consistent with
+ # LUA_ROOT, LUA_LDIR, and LUA_CDIR in luaconf.h.
+-INSTALL_TOP= /usr/local
++INSTALL_TOP= /usr
+ INSTALL_BIN= $(INSTALL_TOP)/bin
+ INSTALL_INC= $(INSTALL_TOP)/include
+ INSTALL_LIB= $(INSTALL_TOP)/lib
+@@ -58,17 +58,17 @@ test:	dummy
+ 	src/lua -v
+ 
+ install: dummy
+-	cd src && $(MKDIR) $(INSTALL_BIN) $(INSTALL_INC) $(INSTALL_LIB) $(INSTALL_MAN) $(INSTALL_LMOD) $(INSTALL_CMOD)
+-	cd src && $(INSTALL_EXEC) $(TO_BIN) $(INSTALL_BIN)
+-	cd src && $(INSTALL_DATA) $(TO_INC) $(INSTALL_INC)
+-	cd src && $(INSTALL_DATA) $(TO_LIB) $(INSTALL_LIB)
+-	cd doc && $(INSTALL_DATA) $(TO_MAN) $(INSTALL_MAN)
++	cd src && $(MKDIR) $(DESTDIR)$(INSTALL_BIN) $(DESTDIR)$(INSTALL_INC) $(DESTDIR)$(INSTALL_LIB) $(DESTDIR)$(INSTALL_MAN) $(DESTDIR)$(INSTALL_LMOD) $(DESTDIR)$(INSTALL_CMOD)
++	cd src && $(INSTALL_EXEC) $(TO_BIN) $(DESTDIR)$(INSTALL_BIN)
++	cd src && $(INSTALL_DATA) $(TO_INC) $(DESTDIR)$(INSTALL_INC)
++	cd src && $(INSTALL_DATA) $(TO_LIB) $(DESTDIR)$(INSTALL_LIB)
++	cd doc && $(INSTALL_DATA) $(TO_MAN) $(DESTDIR)$(INSTALL_MAN)
+ 
+ uninstall:
+-	cd src && cd $(INSTALL_BIN) && $(RM) $(TO_BIN)
+-	cd src && cd $(INSTALL_INC) && $(RM) $(TO_INC)
+-	cd src && cd $(INSTALL_LIB) && $(RM) $(TO_LIB)
+-	cd doc && cd $(INSTALL_MAN) && $(RM) $(TO_MAN)
++	cd src && cd $(DESTDIR)$(INSTALL_BIN) && $(RM) $(TO_BIN)
++	cd src && cd $(DESTDIR)$(INSTALL_INC) && $(RM) $(TO_INC)
++	cd src && cd $(DESTDIR)$(INSTALL_LIB) && $(RM) $(TO_LIB)
++	cd doc && cd $(DESTDIR)$(INSTALL_MAN) && $(RM) $(TO_MAN)
+ 
+ local:
+ 	$(MAKE) install INSTALL_TOP=../install
+@@ -91,15 +91,15 @@ echo:
+ 	@echo "TO_INC= $(TO_INC)"
+ 	@echo "TO_LIB= $(TO_LIB)"
+ 	@echo "TO_MAN= $(TO_MAN)"
+-	@echo "INSTALL_TOP= $(INSTALL_TOP)"
+-	@echo "INSTALL_BIN= $(INSTALL_BIN)"
+-	@echo "INSTALL_INC= $(INSTALL_INC)"
+-	@echo "INSTALL_LIB= $(INSTALL_LIB)"
+-	@echo "INSTALL_MAN= $(INSTALL_MAN)"
+-	@echo "INSTALL_LMOD= $(INSTALL_LMOD)"
+-	@echo "INSTALL_CMOD= $(INSTALL_CMOD)"
+-	@echo "INSTALL_EXEC= $(INSTALL_EXEC)"
+-	@echo "INSTALL_DATA= $(INSTALL_DATA)"
++	@echo "INSTALL_TOP= $(DESTDIR)$(INSTALL_TOP)"
++	@echo "INSTALL_BIN= $(DESTDIR)$(INSTALL_BIN)"
++	@echo "INSTALL_INC= $(DESTDIR)$(INSTALL_INC)"
++	@echo "INSTALL_LIB= $(DESTDIR)$(INSTALL_LIB)"
++	@echo "INSTALL_MAN= $(DESTDIR)$(INSTALL_MAN)"
++	@echo "INSTALL_LMOD= $(DESTDIR)$(INSTALL_LMOD)"
++	@echo "INSTALL_CMOD= $(DESTDIR)$(INSTALL_CMOD)"
++	@echo "INSTALL_EXEC= $(DESTDIR)$(INSTALL_EXEC)"
++	@echo "INSTALL_DATA= $(DESTDIR)$(INSTALL_DATA)"
+ 
+ # echo pkg-config data
+ pc:

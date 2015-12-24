@@ -1,0 +1,8 @@
+## SECTION=system_libraries
+
+config LIBPLIST
+	tristate
+	prompt "libplist"
+	select LIBXML2
+	help
+	  Apple Binary and XML Property Lists

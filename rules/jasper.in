@@ -1,0 +1,7 @@
+## SECTION=multimedia_libs
+
+config JASPER
+	tristate
+	prompt "jasper"
+	help
+	  Jasper is an open source platform for developing always-on, voice-controlled applications.

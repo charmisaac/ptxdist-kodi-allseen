@@ -1,0 +1,7 @@
+## SECTION=networking
+
+config LIBSODIUM
+	tristate
+	prompt "libsodium"
+	help
+	  FIXME
